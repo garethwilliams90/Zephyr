@@ -8,6 +8,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const userSession = await getServerSession(req, res, authOptions)
+  console.log(userSession)
+
   if (!userSession?.user) {
     res.status(403).json({ message: "Not logged in" })
     return
@@ -16,5 +18,6 @@ export default async function handler(
     where: { userId: userSession.user.id, status: "complete" },
     include: { products: true },
   })
+  console.log(orders)
   res.status(200).json(orders)
 }

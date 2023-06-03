@@ -36,7 +36,7 @@ export default function Checkout() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items: cartStore.cart,
-        payment_intent_id: cartStore.paymentIntent,
+        payment_intent: cartStore.paymentIntent,
       }),
     })
       .then((res) => {
