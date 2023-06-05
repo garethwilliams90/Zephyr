@@ -4,6 +4,7 @@ import formatPrice from "@/util/PriceFormat"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import Loading from "../components/Loading"
 
 export default function Dashboard() {
   const [orders, setOrders] = useState(null)
@@ -29,7 +30,7 @@ export default function Dashboard() {
 
   console.log(orders)
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading />
   if (error) return <p>Error: {error}</p>
 
   return (
@@ -61,7 +62,7 @@ export default function Dashboard() {
                 <p className="text-xs">
                   Time: {new Date(order.createdDate).toString()}
                 </p>
-                <div className="text-sm lg:flex items-center  gap-4">
+                <div className="text-sm lg:flex items-center gap-4">
                   {order.products.map((product) => (
                     <div className="py-2" key={product.id}>
                       <h2 className="py-2">{product.name}</h2>

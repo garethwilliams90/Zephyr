@@ -14,28 +14,30 @@ export default function Product({
   const { features } = metadata
 
   return (
-    <Link
-      href={{
-        pathname: `/product/${id}`,
-        query: { name, image, unit_amount, id, description, features },
-      }}
-    >
-      <div>
-        <Image
-          src={image}
-          alt={name}
-          width={800}
-          height={800}
-          className="w-full h-96 object-cover rounded-lg"
-          priority={true}
-        />
-        <div className="font-medium py-2">
-          <h1>{name}</h1>
-          <h2 className="text-sm text-primary">
-            {unit_amount !== null ? formatPrice(unit_amount) : "N/A"}
-          </h2>
+    <div className="hover:border-secondary-focus hover:border-2 p-4 rounded-lg">
+      <Link
+        href={{
+          pathname: `/product/${id}`,
+          query: { name, image, unit_amount, id, description, features },
+        }}
+      >
+        <div className="my-2 ">
+          <Image
+            src={image}
+            alt={name}
+            width={400}
+            height={400}
+            className="w-full h-80 object-cover rounded-lg mx-2"
+            priority={true}
+          />
+          <div className="font-medium py-4">
+            <h1>{name}</h1>
+            <h2 className="text-sm text-primary">
+              {unit_amount !== null ? formatPrice(unit_amount) : "N/A"}
+            </h2>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }

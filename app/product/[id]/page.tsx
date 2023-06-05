@@ -5,13 +5,13 @@ import AddCart from "./AddCart"
 
 export default async function Product({ searchParams }: SearchParamTypes) {
   return (
-    <div className="flex flex-col 2xl:flex-row items-center justify-between gap-16 ">
+    <div className="flex flex-col 2xl:flex-row items-center justify-between gap-16 h-full">
       <Image
         src={searchParams.image}
         alt={searchParams.name}
-        width={600}
-        height={600}
-        className="w-full rounded-lg"
+        width={400}
+        height={400}
+        className="rounded-lg"
         priority={true}
       />
 
