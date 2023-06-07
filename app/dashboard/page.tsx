@@ -30,7 +30,12 @@ export default function Dashboard() {
 
   console.log(orders)
 
-  if (loading) return <Loading />
+  if (loading)
+    return (
+      <div className="flex  items-center justify-center">
+        <Loading />
+      </div>
+    )
   if (error) return <p>Error: {error}</p>
 
   return (

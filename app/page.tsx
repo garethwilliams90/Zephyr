@@ -1,14 +1,23 @@
-import Product from "./components/Product"
-import getProducts from "@/util/getProducts"
+import Link from "next/link"
+import Exercises from "./exercises/page"
+import ExerciseAnimation from "./exerciseAnimation"
 
 export default async function Home() {
-  const products = await getProducts()
-
   return (
-    <main className="grid grid-cols-fluid gap-12">
-      {products.map((product) => (
-        <Product {...product} key={product.id} />
-      ))}
-    </main>
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content text-center">
+        <div className="max-w-md">
+          <h1 className="text-5xl font-bold">Start breathing here...</h1>
+          <p className="py-6">
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
+            a id nisi.
+          </p>
+          <Link href={"/exercises"}>
+            <button className="btn btn-primary">Get Started</button>
+          </Link>
+        </div>
+      </div>
+    </div>
   )
 }

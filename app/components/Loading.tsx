@@ -1,7 +1,6 @@
+import loading from "@/public/loading.json"
+import { Player } from "@lottiefiles/react-lottie-player"
+
 export default function Loading() {
-  return (
-    <span className="loading loading-ring loading-lg text-primary ">
-      Loading
-    </span>
-  )
+  return <Player autoplay speed={1} loop src={loading}></Player>
 }
