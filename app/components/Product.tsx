@@ -14,22 +14,22 @@ export default function Product({
   const { features } = metadata
 
   return (
-    <div className="hover:border-secondary-focus hover:border-2 p-4 rounded-lg">
+    <div className=" hover:border-secondary-focus hover:border-2 px-4 py-4 rounded-lg bg-base-300 h-1/3">
       <Link
         href={{
           pathname: `/product/${id}`,
           query: { name, image, unit_amount, id, description, features },
         }}
       >
-        <div className="my-2 ">
-          <Image
+        <div className="">
+          {/* <Image
             src={image}
             alt={name}
             width={400}
             height={400}
             className="w-full h-80 object-cover rounded-lg mx-2"
             priority={true}
-          />
+          /> */}
           <div className="font-medium py-4">
             <h1>{name}</h1>
             <h2 className="text-sm text-primary">

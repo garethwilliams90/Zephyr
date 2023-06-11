@@ -11,7 +11,7 @@ export default async function Product({ searchParams }: SearchParamTypes) {
         alt={searchParams.name}
         width={400}
         height={400}
-        className="rounded-lg"
+        className="rounded-lg w-3/4"
         priority={true}
       />
 
