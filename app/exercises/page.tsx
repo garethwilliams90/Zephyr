@@ -8,7 +8,7 @@ import ExerciseAnimation from "./exerciseAnimation"
 
 export default function Exercises() {
   return (
-    <div className="flex flex-col w-full justify-center items-center ">
+    <div className="flex flex-col w-full justify-center items-center">
       <BreathingExercises />
       <Timer />
       <BreatheLength />
