@@ -7,6 +7,7 @@ import { IoAddCircle, IoRemoveCircle } from "react-icons/io5"
 import { motion, AnimatePresence } from "framer-motion"
 import Checkout from "./Checkout"
 import OrderConfirmed from "./OrderConfirmed"
+import Drawer from "./Drawer"
 
 export default function Cart() {
   const cartStore = useCartStore()
@@ -17,7 +18,7 @@ export default function Cart() {
   }, 0)
 
   return (
-    <>
+    <div className="z-100">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -133,6 +134,6 @@ export default function Cart() {
           </AnimatePresence>
         </motion.div>
       </motion.div>
-    </>
+    </div>
   )
 }

@@ -1,6 +1,9 @@
+import { useCartStore } from "@/store"
 import Cart from "./Cart"
 
-export default function Drawer({ cartStore }) {
+export default function Drawer() {
+  const cartStore = useCartStore()
+
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />

@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Loading from "../components/Loading"
+import { ProductType } from "@/types/ProductType"
 
 export default function Dashboard() {
   const [orders, setOrders] = useState(null)
@@ -13,6 +14,7 @@ export default function Dashboard() {
   const fetchOrders = async () => {
     const res = await fetch("/api/get-orders")
     const data = await res.json()
+    console.log(data)
     return data
   }
 
@@ -28,7 +30,7 @@ export default function Dashboard() {
       })
   }, [])
 
-  console.log(orders)
+  console.log(`Orders: ${orders}`)
 
   if (loading)
     return (
@@ -68,7 +70,7 @@ export default function Dashboard() {
                   Time: {new Date(order.createdDate).toString()}
                 </p>
                 <div className="text-sm lg:flex items-center gap-4">
-                  {order.products.map((product) => (
+                  {order.products.map((product: ProductType) => (
                     <div className="py-2" key={product.id}>
                       <h2 className="py-2">{product.name}</h2>
                       <div className="flex items-baseline gap-4">
@@ -80,7 +82,7 @@ export default function Dashboard() {
                           priority={true}
                           className="w-auto"
                         />
-                        <p>{formatPrice(product.unit_amount)}</p>
+                        <p>{formatPrice(product.unit_amount!)}</p>
                         <p>Quantity: {product.quantity}</p>
                       </div>
                     </div>

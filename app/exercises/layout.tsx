@@ -6,13 +6,12 @@ export default async function Layout({
   children: React.ReactNode
 }) {
   return (
-    <div className="tems-center justify-center">
-      <ul className="w-full font-medium bg-base rounded-full steps gap-8 py-4 px-2">
-        <li className="step step-accent">Pick an exercise</li>
-        <li className="step step-accent">Set a time length</li>
-        <li className="step">Set an exhale time</li>
-        <li className="step">Start breathing</li>
-      </ul>
+    <div className="items-center justify-center z-0">
+      <div className="tabs tabs-boxed">
+        <a className="tab">Select an exercise</a>
+        <a className="tab tab-active">Choose a time length</a>
+        <a className="tab">Choose breathe length</a>
+      </div>
       {children}
     </div>
   )
