@@ -25,11 +25,16 @@ export default function Nav() {
 
   return (
     <>
-      <div className="navbar bg-base-100 my-4">
+      <div className="navbar bg-base-100 my-4 hover:bg-base-300 rounded-full">
         <Link href={"/"} className="flex-1">
-          <h1 className="btn btn-ghost normal-case text-xl">BreatheLess</h1>
+          <h1 className="btn btn-ghost normal-case text-xl rounded-full">
+            BreatheLess
+          </h1>
         </Link>
-        <Link className="font-bold normal-case btn btn-ghost" href={"/shop"}>
+        <Link
+          className="font-bold normal-case btn btn-ghost rounded-full"
+          href={"/shop"}
+        >
           Shop
         </Link>
         <div className="flex-none gap-4">

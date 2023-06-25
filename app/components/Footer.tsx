@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function Footer() {
   return (
     <div className="rounded-md my-8">
-      <footer className="footer p-10 bg-base-200 text-base-content">
+      <footer className="footer p-10 bg-base-200 text-base-content rounded-xl">
         <div>
           <span className="footer-title">Powered By</span>
           <a className="link link-hover">NextJS</a>
@@ -29,7 +29,7 @@ export default function Footer() {
           <a className="link link-hover">Cookie policy</a>
         </div>
       </footer>
-      <footer className="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
+      <footer className="rounded-xl footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
         <div className="items-center grid-flow-col">
           <svg
             width="24"

@@ -1,17 +1,17 @@
-import { getServerSession } from "next-auth"
+"use client"
+
+import ProfileStreak from "./components/ProfileStreak"
+import UserProfile from "./components/UserProfile"
+import ProfileStats from "./components/profileStats"
 
 export default function Profile() {
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-5xl font-bold">Take a deep breath... </h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-          <button className="btn btn-primary">Get Started</button>
+    <div className="min-h-screen bg-base-300 p-4 rounded-xl">
+      <div className="flex flex-col gap-4 m-6">
+        <ProfileStats />
+        <div className="flex flex-row gap-2">
+          <ProfileStreak />
+          <UserProfile />
         </div>
       </div>
     </div>
