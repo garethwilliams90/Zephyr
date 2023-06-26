@@ -55,12 +55,13 @@ export default function Dashboard() {
               {orders.map((order) => (
                 <div
                   key={order.id}
-                  className="rounded-lg p-8 my-4 space-y-2 bg-base-200"
+                  className="p-8 my-4 space-y-2 bg-base-300 rounded-xl"
                 >
-                  <h2 className="text-xs font-medium">
-                    Order reference: {order.id}
+                  <h2 className="text-m font-medium">
+                    Order reference:{" "}
+                    <span className="text-accent">{order.id}</span>
                   </h2>
-                  <p className="text-xs">
+                  <p className="text-m">
                     Status:
                     <span
                       className={`${
@@ -73,23 +74,21 @@ export default function Dashboard() {
                     </span>
                   </p>
 
-                  <p className="text-xs">
+                  <p className="text-sm">
                     Time: {new Date(order.createdDate).toString()}
                   </p>
                   <div className="text-sm lg:flex items-center gap-4">
                     {order.products.map((product: ProductType) => (
-                      <div className="py-2" key={product.id}>
+                      <div className="p-4" key={product.id}>
                         <h2 className="py-2 font-bold text-primary-focus">
                           {product.name}
                         </h2>
                         <div className="flex items-baseline gap-4">
                           {/* <Image
-                            src={product.image!}
-                            width={36}
-                            height={36}
+                            src={product.image}
                             alt={product.name}
-                            priority={true}
-                            className="w-auto"
+                            width={40}
+                            height={40}
                           /> */}
                           <p>{formatPrice(product.unit_amount!)}</p>
                           <p>Quantity: {product.quantity}</p>
