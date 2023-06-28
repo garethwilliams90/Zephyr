@@ -9,7 +9,7 @@ export default async function Shop() {
   return (
     <>
       <SubscribeStatButton />
-      <div className="h-screen grid grid-rows-fluid gap-2">
+      <div className="h-1/2 grid grid-rows-fluid gap-4">
         {products.map((product) => (
           <Product {...product} key={product.id} />
         ))}

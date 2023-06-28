@@ -72,7 +72,7 @@ export default function Nav() {
             </label>
             <div
               tabIndex={0}
-              className="mt-3 card card-compact dropdown-content w-52 bg-base-300 shadow "
+              className="mt-3 card card-compact dropdown-content w-52 bg-base-300 shadow border-accent border-2"
             >
               <div className="card-body">
                 <span className="font-bold text-lg">
@@ -117,7 +117,7 @@ export default function Nav() {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow-lg  bg-base-300 rounded-box w-52"
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow-lg  bg-base-300 rounded-box w-48 border-accent border-2"
               >
                 <li>
                   <Link

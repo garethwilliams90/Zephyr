@@ -5,14 +5,5 @@ export default async function Layout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <div className="items-center justify-center z-0">
-      <div className="tabs tabs-boxed">
-        <a className="tab">Select an exercise</a>
-        <a className="tab tab-active">Choose a time length</a>
-        <a className="tab">Choose breathe length</a>
-      </div>
-      {children}
-    </div>
-  )
+  return <div className="items-center justify-center z-0">{children}</div>
 }

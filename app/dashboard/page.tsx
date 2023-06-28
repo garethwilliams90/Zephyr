@@ -97,7 +97,10 @@ export default function Dashboard() {
                     ))}
                   </div>
                   <p className="font-medium py-2">
-                    Total: {formatPrice(order.amount)}
+                    Total:{" "}
+                    <span className="font-bold">
+                      {formatPrice(order.amount)}
+                    </span>
                   </p>
                 </div>
               ))}
