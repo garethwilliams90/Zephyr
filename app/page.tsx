@@ -4,7 +4,7 @@ import ExerciseAnimation from "./exerciseAnimation"
 
 export default async function Home() {
   return (
-    <div className="hero min-h-screen bg-base-200 rounded-xl">
+    <div className="hero min-h-screen rounded-xl">
       <div className="hero-content text-center">
         <div className="max-w-full">
           <Link href={"/exercises"}>

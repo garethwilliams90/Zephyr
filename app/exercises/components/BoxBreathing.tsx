@@ -1,6 +1,6 @@
 "use client"
 
-import { SetStateAction, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { AnimatePresence, motion, useAnimation } from "framer-motion"
 import TimerSlider from "./TimerSlider"
 import ExerciseDuration from "./ExerciseDuration"
@@ -14,6 +14,7 @@ export default function BoxBreathing() {
   const [breathMessage, setBreathMessage] = useState<string>("Click To Start")
   const controls = useAnimation()
 
+  // Function to update the breath message for each stage of the breathing cycle
   const messageLoop = () => {
     setBreathMessage("Inhale")
     setTimeout(() => setBreathMessage("Hold"), breatheLength)
@@ -21,26 +22,26 @@ export default function BoxBreathing() {
     setTimeout(() => setBreathMessage("Hold"), breatheLength * 3)
   }
 
+  // Event handler for changing the breathe length using the slider
   const handleBreatheLengthChange = (newValue: number) => {
     setBreatheLength(newValue * 1000)
     setBoxLength(newValue * 4)
-    console.log(
-      `Breathe Length: ${breatheLength} \n\nRound Length: ${boxLength}`
-    )
   }
 
+  // Event handler for changing the exercise duration using the slider
   const handleDurationChange = (newValue: number) => {
     setExerciseDuration(newValue)
-    console.log(exerciseDuration)
   }
 
+  // Function to reset all the values to their initial state
   const resetAll = () => {
-    // Reset the exercise completely
     setBreatheLength(5500)
     setBoxLength(breatheLength * 4)
     setExerciseDuration(boxLength * 5)
+    setRoundCount(0)
   }
 
+  // Function to toggle the breathing animation
   const toggleBreathing = () => {
     setIsBreathing((prevIsBreathing) => !prevIsBreathing)
 
@@ -48,6 +49,7 @@ export default function BoxBreathing() {
       setBoxLength(breatheLength * 4)
       animateSquare()
     } else {
+      resetAll()
       controls.stop()
       controls.set({
         x: "0%",
@@ -56,6 +58,7 @@ export default function BoxBreathing() {
     }
   }
 
+  // useEffect hook to update the box length and time display when breathing is active
   useEffect(() => {
     if (isBreathing) {
       const interval = setInterval(() => {
@@ -65,6 +68,7 @@ export default function BoxBreathing() {
     }
   }, [isBreathing])
 
+  // Function to animate the square during breathing
   const animateSquare = async () => {
     await controls.start({
       x: ["0%", "400%", "400%", "0%", "0%"],
