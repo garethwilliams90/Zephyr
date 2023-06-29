@@ -28,7 +28,7 @@ export default function Nav() {
       <div className="navbar bg-base-100 my-4 hover:bg-base-300 rounded-full">
         <Link href={"/"} className="flex-1">
           <h1 className="btn btn-ghost normal-case text-xl rounded-full">
-            BreatheLess
+            BoxBreath
           </h1>
         </Link>
         <Link
