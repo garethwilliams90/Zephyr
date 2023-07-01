@@ -29,6 +29,7 @@ export default async function handler(
   //Extract the data from the body
   const { items, payment_intent_id } = req.body
   const total = calculateOrderAmount(items)
+
   //Create the order data
   const orderData = {
     user: { connect: { id: userSession.user?.id } },
