@@ -7,10 +7,13 @@ export default async function Home() {
     <div className="hero min-h-screen rounded-xl">
       <div className="hero-content text-center">
         <div className="max-w-full">
-          <Link href={"/exercises"}>
-            <h1 className="p-6 btn btn-ghost text-5xl font-bold h-auto w-auto btn-circle">
-              Start breathing here...
-            </h1>
+          <Link
+            href={"/exercises"}
+            className={
+              "p-6 btn btn-ghost text-5xl font-bold h-auto w-auto btn-circle"
+            }
+          >
+            Start breathing here...
           </Link>
         </div>
       </div>

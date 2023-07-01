@@ -8,19 +8,19 @@ interface DurationSliderProps {
 }
 
 export default function ExerciseDuration({ onChange }: DurationSliderProps) {
-  const [breathLength, setBreathLength] = useState<number>(5)
+  const [breathLength, setBreathLength] = useState<number>(3)
   const marks = [
     {
-      value: 0.5,
-      label: "30s",
+      value: 1,
+      label: "1",
     },
     {
-      value: 5,
-      label: "5min",
+      value: 3,
+      label: "3",
     },
     {
-      value: 15,
-      label: "15min",
+      value: 25,
+      label: "25",
     },
   ]
 
@@ -36,17 +36,17 @@ export default function ExerciseDuration({ onChange }: DurationSliderProps) {
       className="bg-base-100 rounded-xl px-6 my-4 pb-8 pt-4 w-1/3 flex flex-row items-center justify-center"
       spacing={1}
     >
-      <div className="my-2">Total Breathing Time</div>
+      <div className="my-2">Target Rounds</div>
       <Slider
         onChange={handleSliderChange}
         getAriaLabel={() => "Custom marks"}
         orientation="horizontal"
         value={breathLength}
-        step={0.5}
+        step={1}
         valueLabelDisplay="auto"
         marks={marks}
-        min={0.5}
-        max={15}
+        min={1}
+        max={25}
         color="primary"
         size="medium"
       />

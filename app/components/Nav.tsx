@@ -24,7 +24,7 @@ export default function Nav() {
   }, 0)
 
   return (
-    <div className="navbar bg-base-100 my-4 hover:bg-base-300 rounded-full shadow-md shadow-black/30 z-100 ">
+    <div className="px-4 fixed left-0 top-0 w-full navbar bg-base-100 mb-4 hover:bg-base-300  shadow-md shadow-black/30 z-100 ">
       <Link href={"/"} className="flex-1">
         <h1 className="btn btn-ghost normal-case text-xl rounded-full">
           BoxBreath
