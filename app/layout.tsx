@@ -45,7 +45,10 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html className={`${roboto.variable} ${lobster.variable}  `} lang="en">
+    <html
+      className={`${roboto.variable} ${lobster.variable} overflow-scroll scroll-m-96`}
+      lang="en"
+    >
       <Hydrate>
         <Nav />
         <div className="mt-28">{children}</div>

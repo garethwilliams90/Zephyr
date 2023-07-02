@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react"
 import formatPrice from "@/util/PriceFormat"
 import { useState } from "react"
 import Drawer from "./Drawer"
+import { Tooltip } from "@mui/material"
 
 export default function Nav() {
   const cartStore = useCartStore()
@@ -30,67 +31,65 @@ export default function Nav() {
           BoxBreath
         </h1>
       </Link>
-      <Link
-        className="font-bold normal-case btn btn-ghost rounded-full"
-        href={"/shop"}
-      >
-        Shop
-      </Link>
       <div className="flex-none gap-4">
         {/* {Dark Mode} */}
         <DarkLight />
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              {cartStore.cart.length > 0 && (
-                <motion.span
-                  animate={{ scale: 1 }}
-                  initial={{ scale: 0 }}
-                  exit={{ scale: 0 }}
+        <Tooltip title="View your cart" arrow>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <div className="indicator">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-7 w-7"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <motion.span className="badge badge-sm indicator-item bg-secondary text-white z-0">
-                    {cartStore.cart.length}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                {cartStore.cart.length > 0 && (
+                  <motion.span
+                    animate={{ scale: 1 }}
+                    initial={{ scale: 0 }}
+                    exit={{ scale: 0 }}
+                  >
+                    <motion.span className="badge badge-sm indicator-item bg-secondary text-white z-0">
+                      {cartStore.cart.length}
+                    </motion.span>
                   </motion.span>
-                </motion.span>
-              )}
-            </div>
-          </label>
-          <div
-            tabIndex={0}
-            className="mt-3 card card-compact dropdown-content w-52 bg-base-300 shadow border-accent border-2"
-          >
-            <div className="card-body">
-              <span className="font-bold text-lg">
-                {cartStore.cart.length} Items
-              </span>
-              <span className="text-info">
-                Subtotal: {formatPrice(totalPrice)}
-              </span>
-              <div className="card-actions">
-                <button
-                  onClick={() => cartStore.toggleCart()}
-                  className="btn btn-primary btn-block"
-                >
-                  View cart
-                </button>
+                )}
+              </div>
+            </label>
+
+            <div
+              tabIndex={0}
+              className="mt-3 card card-compact dropdown-content w-52 bg-base-300 shadow border-gray-600 border"
+            >
+              <div className="card-body">
+                <span className="font-bold text-lg">
+                  {cartStore.cart.length} Items
+                </span>
+                <span className="text-info">
+                  Subtotal: {formatPrice(totalPrice)}
+                </span>
+
+                <div className="card-actions">
+                  <button
+                    onClick={() => cartStore.toggleCart()}
+                    className="btn btn-outline btn-block"
+                  >
+                    View cart
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Tooltip>
 
         {/* If the user is not signed in */}
         {!session?.user && (
@@ -116,7 +115,7 @@ export default function Nav() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow-lg  bg-base-300 rounded-box w-48 border-accent border-2"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow-lg  bg-base-300 rounded-box w-48 border-gray-600 border"
             >
               <li>
                 <Link
@@ -131,10 +130,13 @@ export default function Nav() {
                 </Link>
               </li>
               <li>
+                <Link href={"/shop"}>Shop</Link>
+              </li>
+              <li>
                 <Link href={"/profile"}>
                   <h3 className="justify-between">
                     Profile
-                    <span className="badge mx-2">New</span>
+                    <span className="badge mx-2 ">New</span>
                   </h3>
                 </Link>
               </li>

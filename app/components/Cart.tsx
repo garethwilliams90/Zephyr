@@ -35,9 +35,9 @@ export default function Cart() {
           {cartStore.onCheckout === "cart" && (
             <button
               onClick={() => cartStore.toggleCart()}
-              className="btn btn-secondary text-sm font-bold "
+              className="btn btn-outline text-sm font-bold "
             >
-              Back to store 🏃
+              Back to store
             </button>
           )}
           {cartStore.onCheckout === "checkout" && (
@@ -128,7 +128,7 @@ export default function Cart() {
                 exit={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
                 className="flex flex-col items-center gap-12 text-2xl font-medium pt-56 opacity-75"
               >
-                <h1>Uhhh ohhh...it's empty 😢</h1>
+                <h1>Your cart is empty....</h1>
               </motion.div>
             )}
           </AnimatePresence>

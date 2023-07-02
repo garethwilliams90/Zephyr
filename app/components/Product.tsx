@@ -14,7 +14,7 @@ export default function Product({
   const { features } = metadata
 
   return (
-    <div className="hover:border-secondary-focus hover:border-2 p-4 rounded-lg bg-base-300">
+    <div className="border-gray-600 border   btn-ghost p-4 rounded-lg bg-base-300 ">
       <Link
         href={{
           pathname: `/product/${id}`,
