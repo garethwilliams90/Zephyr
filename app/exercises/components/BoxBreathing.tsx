@@ -4,8 +4,10 @@ import { use, useEffect, useState } from "react"
 import { AnimatePresence, motion, useAnimation } from "framer-motion"
 import TimerSlider from "./TimerSlider"
 import ExerciseDuration from "./ExerciseDuration"
+import { useRouter } from "next/navigation"
 
 export default function BoxBreathing() {
+  const router = useRouter()
   const [breathMessage, setBreathMessage] = useState("Click To Start")
   const [sessionStatus, setSessionStatus] = useState("pending")
   const [messageStarted, setMessageStarted] = useState(false)
@@ -109,6 +111,16 @@ export default function BoxBreathing() {
         sessionStatus: sessionStatus,
       }),
     })
+      .then((res) => {
+        // force user login
+        if (res.status === 403) {
+          return router.push("/api/auth/signin")
+        }
+        return res.json()
+      })
+      .then((data) => {
+        console.log(data)
+      })
   }, [])
 
   return (
@@ -121,7 +133,7 @@ export default function BoxBreathing() {
         </div>
 
         <div className="w-1/3 h-full flex items-start justify-start ">
-          <motion.div className="bg-secondary-focus/80 p-2 rounded-lg w-1/2 h-1/8 text-black">
+          <div className="bg-secondary-focus/80 p-2 rounded-lg w-1/2 h-1/8 text-black">
             <div>
               Rounds: <span className=" font-bold">{roundCount}</span>
             </div>
@@ -130,10 +142,10 @@ export default function BoxBreathing() {
             <div>Rounds: {rounds}</div>
             <div>Total Time: {exerciseDuration / 1000}s</div>
             <div>Breathing?: {isBreathing ? "True" : "False"}</div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
+        <div
           onClick={toggleBreathing}
           className="w-1/3 aspect-square btn-secondary rounded-xl font-medium text-black relative flex items-center justify-center m-4"
         >
@@ -142,7 +154,7 @@ export default function BoxBreathing() {
             animate={controls}
           ></motion.div>
           <div className="text-md">{breathMessage}</div>
-        </motion.div>
+        </div>
         <div className="w-1/3"></div>
       </div>
       <div className="flex flex-row items-center justify-center gap-4 bg-black rounded-xl">

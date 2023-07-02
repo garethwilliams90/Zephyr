@@ -5,9 +5,48 @@ import Image from "next/image"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { Tooltip } from "@mui/material"
+import { useEffect, useState } from "react"
+import Loading from "@/app/components/Loading"
 
 export default function ProfileStats() {
+  const [stats, setStats] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const { data: session, status } = useSession()
+
+  const fetchProfileStats = async () => {
+    try {
+      const res = await fetch("/api/get-profile-stats")
+      const data = await res.json()
+      console.log(data)
+      return data
+    } catch (error) {
+      throw new Error("Failed to fetch profile stats: " + error)
+    }
+  }
+
+  useEffect(() => {
+    setLoading(true)
+    fetchProfileStats()
+      .then((data) => {
+        setStats(data)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [])
+
+  console.log(`Stats: ${stats}`)
+
+  if (loading)
+    return (
+      <div className="flex  items-center justify-center">
+        <Loading />
+      </div>
+    )
+  if (error) return <p>Error: {error}</p>
 
   return (
     <>
@@ -45,17 +84,15 @@ export default function ProfileStats() {
             <div className="stat">
               <div className="stat-figure text-secondary ">
                 <Tooltip title="Upgrade to access all features" arrow>
-                  <div className="avatar online">
-                    <div className="w-16 rounded-full">
-                      <Image
-                        src={session.user?.image as string}
-                        alt={session.user.name as string}
-                        width={36}
-                        height={36}
-                        className="rounded-full"
-                        tabIndex={0}
-                      />
-                    </div>
+                  <div className="w-full rounded-full">
+                    <Image
+                      src={session.user?.image as string}
+                      alt={session.user.name as string}
+                      width={64}
+                      height={64}
+                      className="rounded-full "
+                      tabIndex={0}
+                    />
                   </div>
                 </Tooltip>
               </div>

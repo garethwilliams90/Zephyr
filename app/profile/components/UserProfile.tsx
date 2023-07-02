@@ -15,14 +15,18 @@ export default function UserProfile() {
             <div className="w-2/3 h-1/2 bg-base-300 p-4 rounded-xl ">
               <div className="stat-title">
                 <span className="">Username:</span>
-                <span className="stat-value">{session?.user?.name}</span>
+                <span className="stat-value text-sm">
+                  {session?.user?.name}
+                </span>
               </div>
               <div className="stat-title">
                 Email:{" "}
-                <span className="stat-value">{session?.user?.email}</span>
+                <span className="stat-value text-sm">
+                  {session?.user?.email}
+                </span>
               </div>
               <div className="stat-title">
-                Password: <span className="stat-value">password</span>
+                Password: <span className="stat-value text-sm">password</span>
               </div>
             </div>
             <div className="w-1/3 h-1/3 bg-base-300 p-3 rounded-xl flex items-center justify-center">
