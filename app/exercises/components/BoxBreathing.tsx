@@ -92,36 +92,25 @@ export default function BoxBreathing() {
       transition: {
         duration: boxLength / 1000,
         ease: "easeInOut",
-        repeat: rounds,
+        repeat: rounds - 1,
       },
     })
   }
 
   function handleBreatheLengthChange(value: number): void {
-    throw new Error("Function not implemented.")
+    setBreathLength(value * 1000)
   }
 
-  // Create a breathing session as soon as page loads
+  function handleRoundChange(value: number): void {
+    setRounds(value)
+  }
+
   useEffect(() => {
-    fetch("/api/create-breathing-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        roundCount: roundCount,
-        sessionStatus: sessionStatus,
-      }),
-    })
-      .then((res) => {
-        // force user login
-        if (res.status === 403) {
-          return router.push("/api/auth/signin")
-        }
-        return res.json()
-      })
-      .then((data) => {
-        console.log(data)
-      })
-  }, [])
+    setBreathLength(breathLength)
+    setBoxLength(breathLength * 4)
+    setRounds(rounds)
+    setExerciseDuration(rounds * boxLength)
+  }, [rounds, breathLength, isBreathing])
 
   return (
     <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">
@@ -155,11 +144,13 @@ export default function BoxBreathing() {
           ></motion.div>
           <div className="text-md">{breathMessage}</div>
         </div>
-        <div className="w-1/3"></div>
+        <div className="w-1/3">
+          <div className="btn">Finish Exercise</div>
+        </div>
       </div>
       <div className="flex flex-row items-center justify-center gap-4 bg-black rounded-xl">
-        {/* <TimerSlider onChange={handleBreatheLengthChange} /> */}
-        {/* <ExerciseDuration onChange={handleDurationChange} /> */}
+        <TimerSlider onChange={handleBreatheLengthChange} />
+        <ExerciseDuration onChange={handleRoundChange} />
       </div>
     </div>
   )
