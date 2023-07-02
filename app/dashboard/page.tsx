@@ -48,6 +48,15 @@ export default function Dashboard() {
 
   return (
     <>
+      {!orders ||
+        (orders?.length <= 0 && (
+          <div className="h-screen flex flex-col items-center justify-center gap-4">
+            <h1 className="font-bold text-3xl">
+              No orders associated with this account
+            </h1>
+            <div>All of your orders will be displayed here</div>
+          </div>
+        ))}
       <motion.div layout>
         <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           {orders.length > 0 && (

@@ -6,6 +6,7 @@ type ExerciseState = {
   step: number
   type: string
   selectedExercise: BreathingSessionType | {}
+  status: string
   durationSelected: boolean
   selectExercise: () => void
   clearExercise: () => void
@@ -17,6 +18,7 @@ export const useBreathingExercise = create<ExerciseState>()(
       step: 1,
       selectedExercise: {},
       type: "box-breathing",
+      status: "pending",
       durationSelected: false,
       selectExercise: () => set((state) => ({})),
       clearExercise: () =>
