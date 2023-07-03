@@ -12,12 +12,14 @@ export default function BoxBreathing() {
   const [sessionStatus, setSessionStatus] = useState("pending")
   const [messageStarted, setMessageStarted] = useState(false)
   const [isBreathing, setIsBreathing] = useState(false)
+  const [isExerciseRunning, setIsExerciseRunning] = useState(false) // New state variable
   const [rounds, setRounds] = useState(3)
   const [roundCount, setRoundCount] = useState(0)
   const [breathLength, setBreathLength] = useState(5500)
   const [boxLength, setBoxLength] = useState(breathLength * 4)
   const [exerciseDuration, setExerciseDuration] = useState(rounds * boxLength)
   const controls = useAnimation()
+  let intervalId: NodeJS.Timeout | null = null // Variable to store the interval ID
 
   const messageTimer = async (cancel: boolean) => {
     // Update the message every breathLength
@@ -51,32 +53,35 @@ export default function BoxBreathing() {
   }
 
   const startBreathing = () => {
-    // Increment roundCount every full round
-    setInterval(() => {
-      setRoundCount((prevState) => prevState + 1)
-      messageTimer(false)
-    }, boxLength)
+    if (!isExerciseRunning) {
+      setIsExerciseRunning(true)
+      intervalId = setInterval(() => {
+        setRoundCount((prevState) => prevState + 1)
+        messageTimer(false)
+      }, boxLength)
 
-    animateSquare(rounds, boxLength)
+      animateSquare(rounds, boxLength)
+    }
   }
 
   const stopBreathing = () => {
-    // if rounds is greater than 0 send to database
-    if (roundCount > 0) {
+    if (intervalId) {
+      clearInterval(intervalId)
+      intervalId = null
     }
-    // cancel the messageTimer function
+
     messageTimer(true)
     setMessageStarted(false)
     resetSquare()
-    // Clear the breathing message timer stuff
     setBreathMessage("Click To Start")
+    setIsExerciseRunning(false)
   }
 
   const toggleBreathing = async () => {
     setIsBreathing((prevState) => !prevState)
     messageTimer(false)
 
-    if (!isBreathing) {
+    if (!isExerciseRunning) {
       await setMessageStarted(true)
       startBreathing()
     } else {
@@ -84,7 +89,6 @@ export default function BoxBreathing() {
     }
   }
 
-  // Function to animate the square during breathing
   const animateSquare = async (rounds: number, boxLength: number) => {
     await controls.start({
       x: ["0%", "400%", "400%", "0%", "0%"],
@@ -105,6 +109,17 @@ export default function BoxBreathing() {
     setRounds(value)
   }
 
+  function finishExercise() {
+    if (intervalId) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+    resetSquare()
+    setRoundCount(Math.floor(roundCount / rounds) * rounds) // Round the count down to the nearest full round
+    setBreathMessage("Click To Start")
+    setIsExerciseRunning(false)
+  }
+
   useEffect(() => {
     setBreathLength(breathLength)
     setBoxLength(breathLength * 4)
@@ -115,11 +130,11 @@ export default function BoxBreathing() {
   return (
     <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-6 mb-4">
-        <div className="toast toast-end">
+        {/* <div className="toast toast-end">
           <div className="alert alert-info">
             <span>Click and hold to end exercise</span>
           </div>
-        </div>
+        </div> */}
 
         <div className="w-1/3 h-full flex items-start justify-start ">
           <div className="bg-secondary-focus/80 p-2 rounded-lg w-1/2 h-1/8 text-black">
@@ -144,8 +159,15 @@ export default function BoxBreathing() {
           ></motion.div>
           <div className="text-md">{breathMessage}</div>
         </div>
-        <div className="w-1/3">
-          <div className="btn">Finish Exercise</div>
+        <div className="w-1/3 flex flex-col justify-end items-end h-full gap-4">
+          <div
+            onClick={finishExercise}
+            className={`btn btn-outline ${
+              !isExerciseRunning ? "btn-disabled" : ""
+            }`}
+          >
+            Finish Exercise
+          </div>
         </div>
       </div>
       <div className="flex flex-row items-center justify-center gap-4 bg-black rounded-xl">
