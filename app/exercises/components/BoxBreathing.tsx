@@ -130,11 +130,11 @@ export default function BoxBreathing() {
   return (
     <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-6 mb-4">
-        {/* <div className="toast toast-end">
+        <div className="toast toast-end">
           <div className="alert alert-info">
-            <span>Click and hold to end exercise</span>
+            <span>WORK IN PROGRESS</span>
           </div>
-        </div> */}
+        </div>
 
         <div className="w-1/3 h-full flex items-start justify-start ">
           <div className="bg-secondary-focus/80 p-2 rounded-lg w-1/2 h-1/8 text-black">
