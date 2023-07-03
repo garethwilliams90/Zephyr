@@ -51,7 +51,14 @@ export default async function RootLayout({
     >
       <Hydrate>
         <Nav />
-        <div className="mt-28">{children}</div>
+        <div className="mt-28">
+          {children}
+          <div className="toast toast-end">
+            <div className="alert alert-info">
+              <span>WORK IN PROGRESS</span>
+            </div>
+          </div>
+        </div>
         <Footer />
       </Hydrate>
     </html>
