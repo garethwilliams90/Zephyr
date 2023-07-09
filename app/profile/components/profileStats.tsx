@@ -8,7 +8,7 @@ import { Tooltip } from "@mui/material"
 import { useEffect, useState } from "react"
 import Loading from "@/app/components/Loading"
 
-export default function ProfileStats(stats) {
+export default function ProfileStats({ stats }) {
   const { data: session, status } = useSession()
 
   return (
@@ -29,7 +29,9 @@ export default function ProfileStats(stats) {
               <BsClock size={40} />
             </div>
             <div className="stat-title">Minutes Breathing</div>
-            <div className="stat-value text-secondary">{stats.totalTime}</div>
+            <div className="stat-value text-secondary">
+              {stats.userSession.user.totalTime}
+            </div>
             <div className="stat-desc">Top 8% of all users</div>
           </div>
 
@@ -39,7 +41,7 @@ export default function ProfileStats(stats) {
             </div>
             <div className="stat-title">Current Streak</div>
             <div className="stat-value text-secondary">
-              {stats.currentStreak} Days
+              {stats.userSession.user.currentStreak} Days
             </div>
             <div className="stat-desc">Top 1% of all users</div>
           </div>

@@ -51,9 +51,9 @@ export default function Profile() {
       {session?.user && (
         <div className="min-h-screen bg-base-300 p-4 rounded-xl">
           <div className="flex flex-col gap-4 m-6">
-            <ProfileStats stats={stats.userSession.user} />
+            <ProfileStats stats={stats} />
             <div className="flex flex-row gap-2">
-              <ProfileStreak stats={stats.userSession.user} />
+              <ProfileStreak stats={stats} />
               <UserProfile />
             </div>
           </div>
