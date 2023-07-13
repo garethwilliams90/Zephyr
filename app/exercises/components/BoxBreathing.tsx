@@ -10,8 +10,7 @@ import { duration } from "@mui/material"
 export default function BoxBreathing() {
   const router = useRouter()
   const [breathMessage, setBreathMessage] = useState("Click To Start")
-  const [sessionStatus, setSessionStatus] = useState("pending")
-  const [messageStarted, setMessageStarted] = useState(false)
+  const [sessionStatus, setSessionStatus] = useState("")
   const [isBreathing, setIsBreathing] = useState(false)
   const [isExerciseRunning, setIsExerciseRunning] = useState(false) // New state variable
   const [rounds, setRounds] = useState(3)
@@ -35,6 +34,7 @@ export default function BoxBreathing() {
   const startBreathing = () => {
     animateSquare(rounds, boxLength)
     setRoundCount(0)
+    setSessionStatus("started")
   }
 
   const cancelBreathing = async () => {
@@ -49,6 +49,7 @@ export default function BoxBreathing() {
     cancelBreathing()
     resetSquare()
     setBreathMessage("Click To Start")
+    setSessionStatus("complete")
 
     // Log the rounds completed
 
@@ -75,7 +76,6 @@ export default function BoxBreathing() {
         },
       })
       .then(() => {
-        setRoundCount((prevstate) => prevstate + 1)
         if (!isBreathing) {
           finishExercise()
         }
@@ -91,20 +91,27 @@ export default function BoxBreathing() {
   }
 
   useEffect(() => {
+    if (isBreathing) {
+      setInterval(() => {
+        setRoundCount((prevState) => prevState + 1)
+      }, boxLength)
+    }
+  }, [isBreathing])
+
+  useEffect(() => {
     setBreathLength(breathLength)
     setBoxLength(breathLength * 4)
     setRounds(rounds)
     setExerciseDuration(rounds * boxLength)
-    setRoundCount(roundCount)
-  }, [rounds, breathLength, isBreathing, roundCount])
+  }, [rounds, breathLength, isBreathing])
 
   return (
     <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-6 mb-4">
         <div className="w-1/3 h-full flex items-start justify-start ">
-          <div className="bg-secondary-focus/80 p-2 rounded-lg w-1/2 h-1/8 text-black">
+          <div className="bg-secondary-focus/80 p-2 rounded-lg h-1/8 text-black font-bold">
             <div>
-              Rounds: <span className=" font-bold">{roundCount}</span>
+              Rounds: <span className="text-primary-focus">{roundCount}</span>
             </div>
             {/* <div>Breath: {breathLength / 1000}s</div>
             <div>Box Time: {boxLength / 1000}s</div>
