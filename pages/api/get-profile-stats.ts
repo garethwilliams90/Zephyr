@@ -57,8 +57,17 @@ export default async function handler(
     },
   })
 
-  console.log(longestStreak, accountCreated)
+  const data = {
+    accountCreated: accountCreated,
+    totalRounds: totalRounds,
+    totalSessions: totalSessions,
+    totalTime: totalTime,
+    currentStreak: currentStreak,
+    longestStreak: longestStreak,
+  }
+
   res.status(200).json({
     userSession,
+    data,
   })
 }

@@ -15,8 +15,38 @@ export default async function handler(
     res.status(403).json({ message: "Not logged in" })
     return
   }
+
   //Extract the data from the body
-  const { roundCount, sessionStatus } = req.body
+  const {
+    breathingSessionId,
+    sessionStatus,
+    roundCount,
+    exerciseName,
+    breathLength,
+    totalTime,
+  } = req.body
+
+  // Create the breathing session data
+  const breathingSessionData = {
+    id: breathingSessionId,
+    type: exerciseName,
+    totalTime: totalTime,
+    roundsCompleted: roundCount,
+    breatheLength: breathLength,
+    status: sessionStatus,
+    startedAt: Date(),
+    user: { connect: { id: userSession.user?.id } },
+    userId: userSession.user.id,
+  }
+
+  console.log(breathingSessionData)
+
+  // Update the prisma model with retrieved data
+  prisma.exerciseSession.create({
+    data: breathingSessionData,
+  })
 
   res.status(200).json({ userSession })
+
+  return
 }

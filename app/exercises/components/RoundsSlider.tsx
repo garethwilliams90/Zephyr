@@ -7,7 +7,7 @@ interface DurationSliderProps {
   onChange: (value: number) => void
 }
 
-export default function ExerciseDuration({ onChange }: DurationSliderProps) {
+export default function RoundsSlider({ onChange }: DurationSliderProps) {
   const [breathLength, setBreathLength] = useState<number>(3)
   const marks = [
     {
@@ -33,7 +33,7 @@ export default function ExerciseDuration({ onChange }: DurationSliderProps) {
 
   return (
     <Stack
-      className="bg-base-100 rounded-xl px-6 my-4 pb-8 pt-4 w-1/3 flex flex-row items-center justify-center"
+      className="bg-secondary-focus rounded-xl px-6 my-4 pb-8 pt-4 w-1/3 flex flex-row items-center justify-center"
       spacing={1}
     >
       <div className="my-2">Target Rounds</div>
@@ -47,7 +47,7 @@ export default function ExerciseDuration({ onChange }: DurationSliderProps) {
         marks={marks}
         min={1}
         max={25}
-        color="primary"
+        color="secondary"
         size="medium"
       />
     </Stack>

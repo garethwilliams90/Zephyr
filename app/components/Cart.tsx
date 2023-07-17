@@ -18,7 +18,7 @@ export default function Cart() {
   }, 0)
 
   return (
-    <div className="z-100">
+    <div className="z-40">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

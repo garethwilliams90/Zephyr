@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion, useAnimation } from "framer-motion"
 import TimerSlider from "./TimerSlider"
-import ExerciseDuration from "./ExerciseDuration"
+import RoundsSlider from "./RoundsSlider"
 import { useRouter } from "next/navigation"
-import { duration } from "@mui/material"
 
 export default function BoxBreathing() {
   const router = useRouter()
@@ -39,7 +38,7 @@ export default function BoxBreathing() {
 
   const cancelBreathing = async () => {
     setShowFinished(true)
-    await delay(3000)
+    await delay(4500)
     setShowFinished(false)
   }
 
@@ -51,9 +50,7 @@ export default function BoxBreathing() {
     setBreathMessage("Click To Start")
     setSessionStatus("complete")
 
-    // Log the rounds completed
-
-    // Update prisma for rounds, time, streak, and session
+    handleBreathingCompletion()
   }
 
   const toggleBreathing = () => {
@@ -105,27 +102,54 @@ export default function BoxBreathing() {
     setExerciseDuration(rounds * boxLength)
   }, [rounds, breathLength, isBreathing])
 
+  function handleBreathingCompletion() {
+    //Create a breathingSession as soon as the page loads up
+    fetch("/api/create-breathing-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        breathingSessionId: 3,
+        sessionStatus: sessionStatus,
+        roundCount: roundCount,
+        exerciseName: "Box Breathing",
+        breathLength: breathLength,
+        totalTime: exerciseDuration,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 403) {
+          return router.push("/api/auth/signin")
+        }
+        return res.json()
+      })
+      .then((data) => {
+        console.log(data)
+      })
+  }
+
   return (
     <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-6 mb-4">
         <div className="w-1/3 h-full flex items-start justify-start ">
-          <div className="bg-secondary-focus/80 p-2 rounded-lg h-1/8 text-black font-bold">
+          {/* <div className="bg-secondary-focus/80 p-2 rounded-lg h-1/8 text-black font-bold">
             <div>
-              Rounds: <span className="text-primary-focus">{roundCount}</span>
+              Rounds: <span className="text-white">{roundCount}</span>
             </div>
-            {/* <div>Breath: {breathLength / 1000}s</div>
+            <div>Breath: {breathLength / 1000}s</div>
             <div>Box Time: {boxLength / 1000}s</div>
             <div>Rounds: {rounds}</div>
             <div>Total Time: {exerciseDuration / 1000}s</div>
-            <div>Breathing?: {isBreathing ? "True" : "False"}</div> */}
-          </div>
+            <div>Breathing?: {isBreathing ? "True" : "False"}</div>
+          </div> */}
         </div>
 
         {showFinished && (
-          <div className="toast toast-start">
-            <div className="alert alert-success">
-              <span>Exercise Completed</span>
-              <span>{roundCount} rounds completed</span>
+          <div className="toast toast-start shadow-lg z-50">
+            <div className="alert alert-success flex-col">
+              <div>
+                <span>{roundCount} rounds completed</span>
+              </div>
+              <span>You can view your stats on your profile page</span>
             </div>
           </div>
         )}
@@ -135,10 +159,10 @@ export default function BoxBreathing() {
             onClick={toggleBreathing}
             className={`w-1/3 aspect-square btn-secondary rounded-xl font-medium text-black relative flex items-center justify-center m-4`}
           >
-            <h1 className="absolute -top-10 text-white">INHALE</h1>
-            <h1 className="absolute -left-16 text-white">HOLD</h1>
-            <h1 className="absolute -bottom-10 text-white">EXHALE</h1>
-            <h1 className="absolute -right-16 text-white">HOLD</h1>
+            <h1 className="absolute -top-10 text-white text-sm">INHALE</h1>
+            <h1 className="absolute -left-16 text-white text-sm">HOLD</h1>
+            <h1 className="absolute -bottom-10 text-white text-sm">EXHALE</h1>
+            <h1 className="absolute -right-16 text-white text-sm">HOLD</h1>
             <motion.div
               className="bg-white/80 w-1/5 aspect-square shadow rounded-xl absolute top-0 left-0"
               animate={controls}
@@ -158,7 +182,7 @@ export default function BoxBreathing() {
       </div>
       <div className="flex flex-row items-center justify-center gap-4 bg-black rounded-xl">
         <TimerSlider onChange={handleBreathLengthChange} />
-        <ExerciseDuration onChange={handleRoundChange} />
+        <RoundsSlider onChange={handleRoundChange} />
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 "use client"
 
 import { Stack, Slider } from "@mui/material"
-import { SetStateAction, useState } from "react"
+import { useState } from "react"
 
 interface TimerSliderProps {
   onChange: (value: number) => void
@@ -33,7 +33,7 @@ export default function TimerSlider({ onChange }: TimerSliderProps) {
 
   return (
     <Stack
-      className="bg-base-100 rounded-xl px-6 pb-8 pt-4 w-1/3 flex flex-row items-center justify-center"
+      className="bg-secondary-focus rounded-xl px-6 pb-8 pt-4 w-1/3 flex flex-row items-center justify-center"
       spacing={1}
     >
       <div className="my-2">Inhale/Exhale length</div>
@@ -48,7 +48,6 @@ export default function TimerSlider({ onChange }: TimerSliderProps) {
         min={2}
         max={15}
         color="secondary"
-        size="medium"
       />
     </Stack>
   )
