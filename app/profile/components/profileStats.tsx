@@ -10,6 +10,12 @@ import Loading from "@/app/components/Loading"
 
 export default function ProfileStats({ stats }) {
   const { data: session, status } = useSession()
+  console.log(session)
+
+  function convertToMinutes(time) {
+    const totalMinutes = time / 60000
+    return Math.round(totalMinutes * 10) / 10
+  }
 
   return (
     <>
@@ -20,7 +26,9 @@ export default function ProfileStats({ stats }) {
               <BsLungs size={40} />
             </div>
             <div className="stat-title">Total Sessions</div>
-            <div className="stat-value text-primary">0</div>
+            <div className="stat-value text-primary">
+              {stats.data.totalSessions.length}
+            </div>
             <div className="stat-desc">21% more than last month</div>
           </div>
 
@@ -30,7 +38,7 @@ export default function ProfileStats({ stats }) {
             </div>
             <div className="stat-title">Minutes Breathing</div>
             <div className="stat-value text-secondary">
-              {stats.userSession.user.totalTime}
+              {convertToMinutes(stats.data.totalTime)}
             </div>
             <div className="stat-desc">Top 8% of all users</div>
           </div>

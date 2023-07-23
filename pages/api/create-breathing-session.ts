@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { authOptions } from "./auth/[...nextauth]"
 import { getServerSession } from "next-auth"
-import { prisma } from "@/util/prisma"
+import { PrismaClient, Prisma } from "@prisma/client"
+
+const prisma = new PrismaClient()
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +11,6 @@ export default async function handler(
 ) {
   //Get user
   const userSession = await getServerSession(req, res, authOptions)
-  console.log(userSession)
 
   if (!userSession?.user) {
     res.status(403).json({ message: "Not logged in" })
@@ -17,36 +18,40 @@ export default async function handler(
   }
 
   //Extract the data from the body
-  const {
-    breathingSessionId,
-    sessionStatus,
-    roundCount,
-    exerciseName,
-    breathLength,
-    totalTime,
-  } = req.body
+  const { sessionStatus, roundCount, exerciseName, breathLength, totalTime } =
+    req.body
 
   // Create the breathing session data
   const breathingSessionData = {
-    id: breathingSessionId,
     type: exerciseName,
     totalTime: totalTime,
     roundsCompleted: roundCount,
     breatheLength: breathLength,
     status: sessionStatus,
-    startedAt: Date(),
     user: { connect: { id: userSession.user?.id } },
-    userId: userSession.user.id,
   }
 
   console.log(breathingSessionData)
 
-  // Update the prisma model with retrieved data
-  prisma.exerciseSession.create({
+  // if (breathingSessionData.status === "complete") {
+  //   // add this session and the stats to the user prisma model
+  //   prisma.user.update({
+  //     where: {id: userSession.user?.id},
+  //     data: {
+  //       totalRounds: roundsCmp,
+
+  //     }
+  //   })
+  // }
+
+  // create an breathing session with prisma
+  const newSession = await prisma.exerciseSession.create({
     data: breathingSessionData,
   })
 
-  res.status(200).json({ userSession })
+  // Then update the user model with the breathingSession
+
+  res.status(200).json({ userSession, breathingSessionData })
 
   return
 }

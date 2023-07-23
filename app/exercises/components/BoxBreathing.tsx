@@ -22,6 +22,31 @@ export default function BoxBreathing() {
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
 
+  function handleBreathingCompletion() {
+    //Create a breathingSession as soon as the page loads up
+    fetch("/api/create-breathing-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        breathingSessionId: 3,
+        sessionStatus: sessionStatus,
+        roundCount: roundCount,
+        exerciseName: "Box Breathing",
+        breathLength: breathLength,
+        totalTime: exerciseDuration,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 403) {
+          return router.push("/api/auth/signin")
+        }
+        return res.json()
+      })
+      .then((data) => {
+        console.log(data)
+      })
+  }
+
   const resetSquare = () => {
     controls.stop()
     controls.set({
@@ -101,31 +126,6 @@ export default function BoxBreathing() {
     setRounds(rounds)
     setExerciseDuration(rounds * boxLength)
   }, [rounds, breathLength, isBreathing])
-
-  function handleBreathingCompletion() {
-    //Create a breathingSession as soon as the page loads up
-    fetch("/api/create-breathing-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        breathingSessionId: 3,
-        sessionStatus: sessionStatus,
-        roundCount: roundCount,
-        exerciseName: "Box Breathing",
-        breathLength: breathLength,
-        totalTime: exerciseDuration,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 403) {
-          return router.push("/api/auth/signin")
-        }
-        return res.json()
-      })
-      .then((data) => {
-        console.log(data)
-      })
-  }
 
   return (
     <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">

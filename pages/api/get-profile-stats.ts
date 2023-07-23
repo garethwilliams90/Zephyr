@@ -8,47 +8,28 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const userSession = await getServerSession(req, res, authOptions)
-  console.log(userSession)
 
   if (!userSession?.user) {
     res.status(403).json({ message: "Not logged in" })
     return
   }
 
-  const longestStreak = await prisma.user.findFirst({
+  const totalSessions = await prisma.user.findMany({
     where: { id: userSession.user.id },
     select: {
-      longestStreak: true,
+      breathingSessions: true,
     },
   })
 
-  const currentStreak = await prisma.user.findFirst({
-    where: { id: userSession.user.id },
-    select: {
-      currentStreak: true,
-    },
-  })
+  const sessions = totalSessions[0].breathingSessions
 
-  const totalTime = await prisma.user.findFirst({
-    where: { id: userSession.user.id },
-    select: {
-      totalTime: true,
-    },
-  })
+  const totalRounds = sessions.reduce((sum, session) => {
+    return sum + session.roundsCompleted
+  }, 0)
 
-  const totalSessions = await prisma.user.findFirst({
-    where: { id: userSession.user.id },
-    select: {
-      sessions: true,
-    },
-  })
-
-  const totalRounds = await prisma.user.findFirst({
-    where: { id: userSession.user.id },
-    select: {
-      totalRounds: true,
-    },
-  })
+  const totalTime = sessions.reduce((sum, session) => {
+    return sum + session.totalTime
+  }, 0)
 
   const accountCreated = await prisma.user.findFirst({
     where: { id: userSession.user.id },
@@ -60,11 +41,20 @@ export default async function handler(
   const data = {
     accountCreated: accountCreated,
     totalRounds: totalRounds,
-    totalSessions: totalSessions,
+    totalSessions: sessions,
     totalTime: totalTime,
-    currentStreak: currentStreak,
-    longestStreak: longestStreak,
+    // currentStreak: currentStreak,
+    // longestStreak: longestStreak,
   }
+
+  const roundUpdate = await prisma.user.update({
+    where: { id: userSession.user.id },
+    data: {
+      totalRounds: data.totalRounds,
+    },
+  })
+
+  console.log({ userSession, data })
 
   res.status(200).json({
     userSession,

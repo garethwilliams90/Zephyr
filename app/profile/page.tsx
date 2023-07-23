@@ -16,9 +16,9 @@ export default function Profile() {
   const fetchProfileStats = async () => {
     try {
       const res = await fetch("/api/get-profile-stats")
-      const data = await res.json()
-      console.log(data)
-      return data
+      const breathingSession = await res.json()
+      console.log(breathingSession.data)
+      return breathingSession
     } catch (error) {
       throw new Error("Failed to fetch profile stats: " + error)
     }
