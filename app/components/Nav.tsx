@@ -5,18 +5,14 @@ import Image from "next/image"
 import Link from "next/link"
 import Cart from "./Cart"
 import { useCartStore } from "@/store"
-import { AiFillShopping } from "react-icons/ai"
 import { motion, AnimatePresence } from "framer-motion"
 import DarkLight from "./DarkLight"
 import { useSession } from "next-auth/react"
 import formatPrice from "@/util/PriceFormat"
-import { useState } from "react"
-import Drawer from "./Drawer"
 import { Tooltip } from "@mui/material"
 
 export default function Nav() {
   const cartStore = useCartStore()
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const { data: session, status } = useSession()
 
   //Total Price
@@ -25,16 +21,16 @@ export default function Nav() {
   }, 0)
 
   return (
-    <div className="px-4 fixed opacity-90 left-0 top-0 w-full navbar bg-base-100 mb-4 hover:bg-base-300  shadow-md shadow-black/30 z-50">
+    <div className="px-4 fixed opacity-95 left-0 top-0 w-full navbar bg-base-300 mb-4 hover:bg-base-300  shadow-md shadow-black/30 z-50">
       <Link href={"/"} className="flex-1">
-        <h1 className="btn btn-ghost normal-case text-xl rounded-full">
+        <h1 className="btn btn-ghost normal-case text-lg lg:text-xl rounded-full">
           Zephyr
         </h1>
       </Link>
       <div className="flex-none gap-4">
         {/* {Dark Mode} */}
         <DarkLight />
-        <Tooltip title="View your cart" arrow>
+        {/* <Tooltip title="View your cart" arrow>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <div className="indicator">
@@ -89,7 +85,7 @@ export default function Nav() {
               </div>
             </div>
           </div>
-        </Tooltip>
+        </Tooltip> */}
 
         {/* If the user is not signed in */}
         {!session?.user && (
@@ -102,7 +98,7 @@ export default function Nav() {
         {session?.user && (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
+              <div className="w-10 lg:w-12 rounded-full">
                 <Image
                   src={session.user?.image as string}
                   alt={session.user.name as string}
@@ -129,9 +125,9 @@ export default function Nav() {
                   Orders
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href={"/shop"}>Shop</Link>
-              </li>
+              </li> */}
               <li>
                 <Link href={"/profile"}>
                   <h3 className="justify-between">

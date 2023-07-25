@@ -19,8 +19,8 @@ export default function RoundsSlider({ onChange }: DurationSliderProps) {
       label: "3",
     },
     {
-      value: 25,
-      label: "25",
+      value: 10,
+      label: "10",
     },
   ]
 
@@ -33,10 +33,10 @@ export default function RoundsSlider({ onChange }: DurationSliderProps) {
 
   return (
     <Stack
-      className="bg-secondary-focus rounded-xl px-6 my-4 pb-8 pt-4 w-1/3 flex flex-row items-center justify-center"
+      className="bg-secondary-focus rounded-xl px-4 lg:px-6 my-4 pb-8 pt-4 w-full lg:w-1/3 flex flex-row items-center justify-center"
       spacing={1}
     >
-      <div className="my-2">Target Rounds</div>
+      <div className="my-2 text-md">Target Rounds</div>
       <Slider
         onChange={handleSliderChange}
         getAriaLabel={() => "Custom marks"}
@@ -46,7 +46,7 @@ export default function RoundsSlider({ onChange }: DurationSliderProps) {
         valueLabelDisplay="auto"
         marks={marks}
         min={1}
-        max={25}
+        max={10}
         color="secondary"
         size="medium"
       />

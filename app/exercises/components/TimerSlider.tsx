@@ -33,10 +33,10 @@ export default function TimerSlider({ onChange }: TimerSliderProps) {
 
   return (
     <Stack
-      className="bg-secondary-focus rounded-xl px-6 pb-8 pt-4 w-1/3 flex flex-row items-center justify-center"
+      className="bg-secondary-focus rounded-xl px-4 lg:px-6 my-4 pb-8 pt-4 w-full lg:w-1/3 flex flex-row items-center justify-center"
       spacing={1}
     >
-      <div className="my-2">Inhale/Exhale length</div>
+      <div className="my-2 text-md">Inhale/Exhale length</div>
       <Slider
         onChange={handleSliderChange}
         getAriaLabel={() => "Custom marks"}

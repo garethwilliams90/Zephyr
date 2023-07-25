@@ -128,9 +128,9 @@ export default function BoxBreathing() {
   }, [rounds, breathLength, isBreathing])
 
   return (
-    <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">
-      <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-6 mb-4">
-        <div className="w-1/3 h-full flex items-start justify-start "></div>
+    <div className="flex -m-6 lg:m-0 flex-col p-2 lg:p-6 bg-base-300 rounded-xl w-full h-screen">
+      <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-2 lg:p-6 mb-4">
+        <div className="w-1/6 lg:w-1/3 h-full  flex items-start justify-start "></div>
 
         {showFinished && (
           <div className="toast toast-start shadow-lg z-50">
@@ -146,21 +146,29 @@ export default function BoxBreathing() {
         <AnimatePresence>
           <div
             onClick={toggleBreathing}
-            className={`w-1/3 aspect-square btn-secondary rounded-xl font-medium text-black relative flex items-center justify-center m-4`}
+            className={`w-3/4 lg:w-1/3 aspect-square btn-secondary rounded-lg lg:rounded-xl font-medium text-black relative flex items-center justify-center m-4`}
           >
-            <h1 className="absolute -top-10 text-white text-sm">INHALE</h1>
-            <h1 className="absolute -left-16 text-white text-sm">HOLD</h1>
-            <h1 className="absolute -bottom-10 text-white text-sm">EXHALE</h1>
-            <h1 className="absolute -right-16 text-white text-sm">HOLD</h1>
+            <h1 className="absolute -top-8 lg:-top-10 text-white text-xs lg:text-sm">
+              INHALE
+            </h1>
+            <h1 className="absolute -left-12 lg:-left-16 text-white text-xs lg:text-sm">
+              HOLD
+            </h1>
+            <h1 className="absolute -bottom-8 lg:-bottom-10 text-white text-xs lg:text-sm">
+              EXHALE
+            </h1>
+            <h1 className="absolute -right-12 lg:-right-16 text-white text-xs lg:text-sm">
+              HOLD
+            </h1>
             <motion.div
-              className="bg-white/80 w-1/5 aspect-square shadow rounded-xl absolute top-0 left-0"
+              className="bg-white/80 w-1/5 aspect-square shadow rounded-lg lg:rounded-xl absolute top-0 left-0"
               animate={controls}
             ></motion.div>
             <div className="text-md">{breathMessage}</div>
           </div>
         </AnimatePresence>
 
-        <div className="w-1/3 flex flex-col justify-end items-end h-full gap-4">
+        <div className="w-1/6 lg:w-1/3 flex flex-col justify-end items-end h-full gap-4">
           <div
             onClick={finishExercise}
             className={`btn btn-outline ${!isBreathing ? "btn-disabled" : ""}`}
@@ -169,7 +177,7 @@ export default function BoxBreathing() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-center gap-4 bg-black rounded-xl">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-6 p-4 bg-black rounded-xl">
         <TimerSlider onChange={handleBreathLengthChange} />
         <RoundsSlider onChange={handleRoundChange} />
       </div>
