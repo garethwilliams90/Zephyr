@@ -28,7 +28,7 @@ export default function Nav() {
     <div className="px-4 fixed opacity-90 left-0 top-0 w-full navbar bg-base-100 mb-4 hover:bg-base-300  shadow-md shadow-black/30 z-50">
       <Link href={"/"} className="flex-1">
         <h1 className="btn btn-ghost normal-case text-xl rounded-full">
-          BoxBreath
+          Zephyr
         </h1>
       </Link>
       <div className="flex-none gap-4">
