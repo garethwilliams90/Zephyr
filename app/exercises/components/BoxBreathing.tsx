@@ -130,18 +130,7 @@ export default function BoxBreathing() {
   return (
     <div className="flex flex-col p-6 bg-base-300 rounded-xl w-full h-screen text-xl">
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-6 mb-4">
-        <div className="w-1/3 h-full flex items-start justify-start ">
-          {/* <div className="bg-secondary-focus/80 p-2 rounded-lg h-1/8 text-black font-bold">
-            <div>
-              Rounds: <span className="text-white">{roundCount}</span>
-            </div>
-            <div>Breath: {breathLength / 1000}s</div>
-            <div>Box Time: {boxLength / 1000}s</div>
-            <div>Rounds: {rounds}</div>
-            <div>Total Time: {exerciseDuration / 1000}s</div>
-            <div>Breathing?: {isBreathing ? "True" : "False"}</div>
-          </div> */}
-        </div>
+        <div className="w-1/3 h-full flex items-start justify-start "></div>
 
         {showFinished && (
           <div className="toast toast-start shadow-lg z-50">

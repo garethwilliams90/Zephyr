@@ -9,7 +9,7 @@ export default function Settings() {
         className="btn btn-primary"
         href={"https://billing.stripe.com/p/login/test_aEUdUQgJv4Y98YEdQR"}
       >
-        View Options
+        Customer Portal
       </Link>
     </div>
   )

@@ -6,6 +6,7 @@ import UserProfile from "./components/UserProfile"
 import ProfileStats from "./components/profileStats"
 import Loading from "../components/Loading"
 import { useSession } from "next-auth/react"
+import Link from "next/link"
 
 export default function Profile() {
   const [loading, setLoading] = useState(true)

@@ -7,6 +7,10 @@ import { DayCalendarSkeleton } from "@mui/x-date-pickers"
 import SimpleSnackbar from "@/app/components/SnackBar"
 
 export default function ProfileStreak({ stats }) {
+  function calculateStreak() {
+    return
+  }
+
   return (
     <div className="stats shadow w-2/5 bg-black">
       <div className="stat">
