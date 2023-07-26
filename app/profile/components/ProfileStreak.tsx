@@ -28,7 +28,6 @@ export default function ProfileStreak({ stats }) {
             renderLoading={() => <DayCalendarSkeleton />}
           />
         </LocalizationProvider>
-
         <AddManualSession />
       </div>
     </div>

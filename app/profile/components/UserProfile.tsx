@@ -27,7 +27,7 @@ export default function UserProfile() {
                 </span>
               </div>
               <div className="stat-title">
-                Password: <span className="stat-value text-sm">password</span>
+                Password: <span className="stat-value text-sm">**********</span>
               </div>
             </div>
           </div>

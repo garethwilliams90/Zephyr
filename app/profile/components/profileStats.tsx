@@ -46,7 +46,9 @@ export default function ProfileStats({ stats }) {
           <BsFire size={40} />
         </div>
         <div className="stat-title">Total Rounds</div>
-        <div className="stat-value text-secondary">0</div>
+        <div className="stat-value text-secondary">
+          {stats.data.totalRounds}
+        </div>
         <div className="stat-desc">Top 1% of all users</div>
       </div>
 
