@@ -8,7 +8,7 @@ export default function UserProfile() {
   const { data: session, status } = useSession()
 
   return (
-    <div className="stats shadow w-3/5 bg-black">
+    <div className="stats shadow w-full lg:w-3/5 bg-black">
       <div className="stat flex items-center flex-col gap-4  ">
         {!session?.user && <div>You must Login to see your profile page</div>}
         {session?.user && (

@@ -40,7 +40,7 @@ export default function Profile() {
 
   if (loading)
     return (
-      <div className="flex  items-center justify-center">
+      <div className="flex items-center justify-center">
         <Loading />
       </div>
     )
@@ -50,10 +50,10 @@ export default function Profile() {
     <>
       {!session?.user && <div>You must Login to see your profile page</div>}
       {session?.user && (
-        <div className="min-h-screen bg-base-300 p-4 rounded-xl">
-          <div className="flex flex-col gap-4 m-6">
+        <div className="min-h-screen bg-base-300 rounded-xl p-2 lg:p-4">
+          <div className="flex flex-col gap-4 m-2 lg:m-4">
             <ProfileStats stats={stats} />
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-col lg:flex-row gap-2">
               <ProfileStreak stats={stats} />
               <UserProfile />
             </div>
