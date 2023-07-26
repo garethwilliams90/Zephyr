@@ -5,9 +5,13 @@ import { SetStateAction, useState } from "react"
 
 interface DurationSliderProps {
   onChange: (value: number) => void
+  isBreathing: boolean
 }
 
-export default function RoundsSlider({ onChange }: DurationSliderProps) {
+export default function RoundsSlider({
+  onChange,
+  isBreathing,
+}: DurationSliderProps) {
   const [breathLength, setBreathLength] = useState<number>(3)
   const marks = [
     {
@@ -38,6 +42,7 @@ export default function RoundsSlider({ onChange }: DurationSliderProps) {
     >
       <div className="my-2 text-md">Target Rounds</div>
       <Slider
+        disabled={isBreathing}
         onChange={handleSliderChange}
         getAriaLabel={() => "Custom marks"}
         orientation="horizontal"

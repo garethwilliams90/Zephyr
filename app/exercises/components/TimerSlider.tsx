@@ -5,9 +5,13 @@ import { useState } from "react"
 
 interface TimerSliderProps {
   onChange: (value: number) => void
+  isBreathing: boolean
 }
 
-export default function TimerSlider({ onChange }: TimerSliderProps) {
+export default function TimerSlider({
+  onChange,
+  isBreathing,
+}: TimerSliderProps) {
   const [breathLength, setBreathLength] = useState<number>(5.5)
   const marks = [
     {
@@ -38,6 +42,7 @@ export default function TimerSlider({ onChange }: TimerSliderProps) {
     >
       <div className="my-2 text-md">Inhale/Exhale length</div>
       <Slider
+        disabled={isBreathing}
         onChange={handleSliderChange}
         getAriaLabel={() => "Custom marks"}
         orientation="horizontal"

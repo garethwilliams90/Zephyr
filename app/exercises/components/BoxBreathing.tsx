@@ -178,8 +178,11 @@ export default function BoxBreathing() {
         </div>
       </div>
       <div className="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-6 p-4 bg-black rounded-xl">
-        <TimerSlider onChange={handleBreathLengthChange} />
-        <RoundsSlider onChange={handleRoundChange} />
+        <TimerSlider
+          onChange={handleBreathLengthChange}
+          isBreathing={isBreathing}
+        />
+        <RoundsSlider onChange={handleRoundChange} isBreathing={isBreathing} />
       </div>
     </div>
   )
