@@ -13,8 +13,8 @@ export default function ProfileStreak({ stats }) {
   }
 
   return (
-    <div className="w-full lg:w-2/5 bg-black p-2 lg:p-4 flex flex-col  rounded-xl">
-      <div className="stat">
+    <div className="w-full lg:w-2/5 bg-black p-2 lg:p-4 flex flex-col rounded-xl">
+      <div className="stat -m-2 lg:-m-4">
         <div className="stat-title">Current Streak</div>
         <div className="stat-value text-primary">
           {stats.userSession.user.currentStreak} Days

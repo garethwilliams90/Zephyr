@@ -175,7 +175,7 @@ export default function BoxBreathing() {
         <AnimatePresence>
           <div
             onClick={toggleBreathing}
-            className={`w-3/4 lg:w-1/3 aspect-square btn-secondary rounded-lg lg:rounded-xl font-medium text-black relative flex items-center justify-center m-4`}
+            className={`w-3/4 md:w-1/3 lg:w-1/3 aspect-square btn-secondary rounded-lg lg:rounded-xl font-medium text-black relative flex items-center justify-center m-10`}
           >
             <BoxBreathMessages />
             <motion.div

@@ -9,7 +9,7 @@ export default function UserProfile() {
 
   return (
     <div className="stats shadow w-full lg:w-3/5 bg-black">
-      <div className="stat flex items-center flex-col gap-4  ">
+      <div className="stat flex items-center flex-col gap-y-4">
         {!session?.user && <div>You must Login to see your profile page</div>}
         {session?.user && (
           <div className="flex flex-rows w-full gap-2">
@@ -36,7 +36,7 @@ export default function UserProfile() {
           className="btn btn-primary "
           href={"https://billing.stripe.com/p/login/test_aEUdUQgJv4Y98YEdQR"}
         >
-          Customer Portal
+          Billing Settings
         </Link>
       </div>
     </div>
