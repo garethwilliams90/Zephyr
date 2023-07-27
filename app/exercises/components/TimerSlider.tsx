@@ -37,7 +37,7 @@ export default function TimerSlider({
 
   return (
     <Stack
-      className="bg-secondary-focus rounded-xl px-4 lg:px-6 my-4 pb-8 pt-4 w-full lg:w-1/3 flex flex-row items-center justify-center"
+      className="bg-secondary-focus rounded-xl px-4 lg:px-6 my-4 pb-8 pt-4 w-full flex flex-row items-center justify-center"
       spacing={1}
     >
       <div className="my-2 text-md">Inhale/Exhale length</div>

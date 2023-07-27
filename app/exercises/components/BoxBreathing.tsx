@@ -5,23 +5,28 @@ import { AnimatePresence, motion, useAnimation } from "framer-motion"
 import TimerSlider from "./TimerSlider"
 import RoundsSlider from "./RoundsSlider"
 import { useRouter } from "next/navigation"
-import ProgressBar from "./ProgressBar"
 import BoxBreathMessages from "./BoxBreathMessages"
+import FinishedExercisePopup from "./FinishedExercisePopup"
+import { FaCog } from "react-icons/fa"
 
 export default function BoxBreathing() {
   const router = useRouter()
+
+  const [showFinished, setShowFinished] = useState(false)
+  const [isBreathing, setIsBreathing] = useState(false)
+
   const [breathMessage, setBreathMessage] = useState("Click To Start")
   const [sessionStatus, setSessionStatus] = useState("")
-  const [isBreathing, setIsBreathing] = useState(false)
-  const [isExerciseRunning, setIsExerciseRunning] = useState(false) // New state variable
+
   const [rounds, setRounds] = useState(3)
   const [roundCount, setRoundCount] = useState(0)
-  const [showFinished, setShowFinished] = useState(false)
   const [breathLength, setBreathLength] = useState(5500)
   const [boxLength, setBoxLength] = useState(breathLength * 4)
   const [exerciseDuration, setExerciseDuration] = useState(rounds * boxLength)
+
   const progressControls = useAnimation()
   const controls = useAnimation()
+
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -65,17 +70,13 @@ export default function BoxBreathing() {
     })
   }
 
-  const startBreathing = () => {
-    animateSquare(rounds, boxLength)
-    animateProgressBar(exerciseDuration)
-    setRoundCount(0)
-    setSessionStatus("started")
-  }
-
   const cancelBreathing = async () => {
     setShowFinished(true)
     await delay(4500)
     setShowFinished(false)
+    setSessionStatus("incomplete")
+
+    handleBreathingCompletion()
   }
 
   const finishExercise = () => {
@@ -90,11 +91,13 @@ export default function BoxBreathing() {
     handleBreathingCompletion()
   }
 
-  const toggleBreathing = () => {
+  const startBreathing = () => {
     if (!isBreathing) {
       setIsBreathing(true)
       setBreathMessage("")
-      startBreathing()
+      animateSquare(rounds, boxLength)
+      animateProgressBar(exerciseDuration)
+      setRoundCount(0)
     } else return
   }
 
@@ -129,10 +132,13 @@ export default function BoxBreathing() {
 
   function handleBreathLengthChange(value: number): void {
     setBreathLength(value * 1000)
+    setBoxLength(breathLength * 4)
+    setExerciseDuration(boxLength * rounds)
   }
 
   function handleRoundChange(value: number): void {
     setRounds(value)
+    setExerciseDuration(rounds * boxLength)
   }
 
   useEffect(() => {
@@ -143,38 +149,23 @@ export default function BoxBreathing() {
     }
   }, [isBreathing])
 
-  useEffect(() => {
-    setBreathLength(breathLength)
-    setBoxLength(breathLength * 4)
-    setRounds(rounds)
-    setExerciseDuration(rounds * boxLength)
-  }, [rounds, breathLength, isBreathing])
-
   return (
-    <div className="flex -m-6 lg:m-0 flex-col p-2 lg:p-6 bg-base-300 rounded-xl w-full h-screen">
+    <div className="flex -m-6 lg:m-0 flex-col p-2 lg:p-6 bg-base-300 rounded-xl w-full h-screen items-center">
       <AnimatePresence>
         <motion.div
           animate={progressControls}
-          className="h-1 bg-primary rounded-xl"
+          className="h-1 bg-primary rounded-xl align-baseline"
         ></motion.div>
       </AnimatePresence>
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-2 lg:p-6 mb-4">
         <div className="w-1/6 lg:w-1/3 h-full  flex items-start justify-start "></div>
-
-        {showFinished && (
-          <div className="toast toast-start shadow-lg z-50">
-            <div className="alert alert-success flex-col">
-              <div>
-                <span>{roundCount} rounds completed</span>
-              </div>
-              <span>You can view your stats on your profile page</span>
-            </div>
-          </div>
-        )}
-
+        <FinishedExercisePopup
+          showFinished={showFinished}
+          roundCount={roundCount}
+        />
         <AnimatePresence>
           <div
-            onClick={toggleBreathing}
+            onClick={startBreathing}
             className={`w-3/4 md:w-1/3 lg:w-1/3 aspect-square btn-secondary rounded-lg lg:rounded-xl font-medium text-black relative flex items-center justify-center m-10`}
           >
             <BoxBreathMessages />
@@ -191,16 +182,37 @@ export default function BoxBreathing() {
             onClick={finishExercise}
             className={`btn btn-outline ${!isBreathing ? "btn-disabled" : ""}`}
           >
-            Finish Exercise
+            Cancel Exercise
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-6 p-4 bg-black rounded-xl">
-        <TimerSlider
-          onChange={handleBreathLengthChange}
-          isBreathing={isBreathing}
-        />
-        <RoundsSlider onChange={handleRoundChange} isBreathing={isBreathing} />
+
+      {/* The button to open modal */}
+      <label htmlFor="my_modal_6" className="my-4 btn btn-outline">
+        <FaCog size={40} />
+      </label>
+
+      {/* Put this part before </body> tag */}
+      <input type="checkbox" id="my_modal_6" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Exercise Settings</h3>
+          <div className="flex flex-col items-center justify-center gap-2 lg:gap-6 p-4 rounded-xl">
+            <TimerSlider
+              onChange={handleBreathLengthChange}
+              isBreathing={isBreathing}
+            />
+            <RoundsSlider
+              onChange={handleRoundChange}
+              isBreathing={isBreathing}
+            />
+          </div>
+          <div className="modal-action">
+            <label htmlFor="my_modal_6" className="btn">
+              Close
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   )
