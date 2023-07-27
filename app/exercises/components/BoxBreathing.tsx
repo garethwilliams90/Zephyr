@@ -5,6 +5,8 @@ import { AnimatePresence, motion, useAnimation } from "framer-motion"
 import TimerSlider from "./TimerSlider"
 import RoundsSlider from "./RoundsSlider"
 import { useRouter } from "next/navigation"
+import ProgressBar from "./ProgressBar"
+import BoxBreathMessages from "./BoxBreathMessages"
 
 export default function BoxBreathing() {
   const router = useRouter()
@@ -18,6 +20,7 @@ export default function BoxBreathing() {
   const [breathLength, setBreathLength] = useState(5500)
   const [boxLength, setBoxLength] = useState(breathLength * 4)
   const [exerciseDuration, setExerciseDuration] = useState(rounds * boxLength)
+  const progressControls = useAnimation()
   const controls = useAnimation()
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
@@ -55,8 +58,16 @@ export default function BoxBreathing() {
     })
   }
 
+  const resetProgressBar = () => {
+    progressControls.stop()
+    progressControls.set({
+      scaleX: 0,
+    })
+  }
+
   const startBreathing = () => {
     animateSquare(rounds, boxLength)
+    animateProgressBar(exerciseDuration)
     setRoundCount(0)
     setSessionStatus("started")
   }
@@ -72,6 +83,7 @@ export default function BoxBreathing() {
     setIsBreathing(false)
     cancelBreathing()
     resetSquare()
+    resetProgressBar()
     setBreathMessage("Click To Start")
     setSessionStatus("complete")
 
@@ -104,6 +116,17 @@ export default function BoxBreathing() {
       })
   }
 
+  const animateProgressBar = async (exerciseDuration: number) => {
+    await progressControls.start({
+      scaleX: [0, 1],
+      transition: {
+        duration: exerciseDuration / 1000,
+        ease: "linear",
+        repeat: 0,
+      },
+    })
+  }
+
   function handleBreathLengthChange(value: number): void {
     setBreathLength(value * 1000)
   }
@@ -129,6 +152,12 @@ export default function BoxBreathing() {
 
   return (
     <div className="flex -m-6 lg:m-0 flex-col p-2 lg:p-6 bg-base-300 rounded-xl w-full h-screen">
+      <AnimatePresence>
+        <motion.div
+          animate={progressControls}
+          className="h-1 bg-primary rounded-xl"
+        ></motion.div>
+      </AnimatePresence>
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-2 lg:p-6 mb-4">
         <div className="w-1/6 lg:w-1/3 h-full  flex items-start justify-start "></div>
 
@@ -148,18 +177,7 @@ export default function BoxBreathing() {
             onClick={toggleBreathing}
             className={`w-3/4 lg:w-1/3 aspect-square btn-secondary rounded-lg lg:rounded-xl font-medium text-black relative flex items-center justify-center m-4`}
           >
-            <h1 className="absolute -top-8 lg:-top-10 text-white text-xs lg:text-sm">
-              INHALE
-            </h1>
-            <h1 className="absolute -left-12 lg:-left-16 text-white text-xs lg:text-sm">
-              HOLD
-            </h1>
-            <h1 className="absolute -bottom-8 lg:-bottom-10 text-white text-xs lg:text-sm">
-              EXHALE
-            </h1>
-            <h1 className="absolute -right-12 lg:-right-16 text-white text-xs lg:text-sm">
-              HOLD
-            </h1>
+            <BoxBreathMessages />
             <motion.div
               className="bg-white/80 w-1/5 aspect-square shadow rounded-lg lg:rounded-xl absolute top-0 left-0"
               animate={controls}
