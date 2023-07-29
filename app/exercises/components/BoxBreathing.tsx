@@ -150,7 +150,7 @@ export default function BoxBreathing() {
   }, [isBreathing])
 
   return (
-    <div className="flex -m-6 lg:m-0 flex-col p-2 lg:p-6 bg-base-300 rounded-xl w-full h-screen items-center">
+    <div className="flex -m-6 lg:m-0 flex-col p-2 lg:p-6 bg-base-300 rounded-xl w-full h-screen">
       <AnimatePresence>
         <motion.div
           animate={progressControls}
@@ -188,9 +188,11 @@ export default function BoxBreathing() {
       </div>
 
       {/* The button to open modal */}
-      <label htmlFor="my_modal_6" className="my-4 btn btn-outline">
-        <FaCog size={40} />
-      </label>
+      <div className="w-full flex items-center justify-center">
+        <label htmlFor="my_modal_6" className="btn btn-outline">
+          <FaCog size={40} />
+        </label>
+      </div>
 
       {/* Put this part before </body> tag */}
       <input type="checkbox" id="my_modal_6" className="modal-toggle" />
