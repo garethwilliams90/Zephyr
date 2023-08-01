@@ -115,7 +115,7 @@ export default function Nav() {
             >
               <li>
                 <Link
-                  href={"/dashboard"}
+                  href={"/exerciseHistory"}
                   onClick={() => {
                     if (document.activeElement instanceof HTMLElement) {
                       document.activeElement.blur()
