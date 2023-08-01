@@ -122,7 +122,7 @@ export default function Nav() {
                     }
                   }}
                 >
-                  Orders
+                  History
                 </Link>
               </li>
               {/* <li>
