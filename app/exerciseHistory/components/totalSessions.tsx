@@ -1,6 +1,6 @@
 import React from "react"
 import { BsCalendar, BsClock, BsLungs } from "react-icons/bs"
-import { formatTime } from "./utils/formatDates"
+import { formatTime } from "../utils/formatDates"
 
 const TotalSessionsComponent = ({ totalSessions }) => {
   // Sort the totalSessions array by the newest date first

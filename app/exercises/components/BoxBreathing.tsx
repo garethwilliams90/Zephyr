@@ -30,15 +30,15 @@ export default function BoxBreathing() {
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
 
-  function handleBreathingCompletion() {
+  function handleBreathingCompletion(status: string) {
     //Create a breathingSession as soon as the page loads up
     fetch("/api/create-breathing-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         breathingSessionId: 3,
-        sessionStatus: sessionStatus,
-        roundCount: roundCount,
+        sessionStatus: status,
+        roundCount: rounds,
         exerciseName: "Box Breathing",
         breathLength: breathLength,
         totalTime: exerciseDuration,
@@ -70,53 +70,55 @@ export default function BoxBreathing() {
     })
   }
 
-  const cancelBreathing = async () => {
+  const completeExercise = async () => {
+    // send API post request with completed exercise data
+    setSessionStatus("complete")
+    resetVariables()
     setShowFinished(true)
     await delay(4500)
     setShowFinished(false)
-    setSessionStatus("incomplete")
 
-    handleBreathingCompletion()
+    if (rounds > 0) {
+      handleBreathingCompletion(sessionStatus)
+    }
+    setRoundCount(0)
   }
 
-  const finishExercise = () => {
-    // Set the state variables to default
+  const cancelExercise = () => {
+    // reset all and do not send API POST
+    resetVariables()
+    setSessionStatus("")
+  }
+
+  const resetVariables = () => {
     setIsBreathing(false)
-    cancelBreathing()
-    resetSquare()
     resetProgressBar()
+    resetSquare()
     setBreathMessage("Click To Start")
-    setSessionStatus("complete")
-
-    handleBreathingCompletion()
   }
 
-  const startBreathing = () => {
+  const startBreathing = async () => {
     if (!isBreathing) {
       setIsBreathing(true)
       setBreathMessage("")
-      animateSquare(rounds, boxLength)
       animateProgressBar(exerciseDuration)
-      setRoundCount(0)
+      await animateSquare(rounds, boxLength).then(() => {
+        setSessionStatus("complete")
+        completeExercise()
+      })
     } else return
   }
 
   const animateSquare = async (rounds: number, boxLength: number) => {
-    await controls
-      .start({
-        x: ["0%", "400%", "400%", "0%", "0%"],
-        y: ["0%", "0%", "400%", "400%", "0%"],
-        transition: {
-          duration: boxLength / 1000,
-          ease: "easeInOut",
-          repeat: rounds - 1,
-        },
-      })
-      .then(() => {
-        if (!isBreathing) {
-          finishExercise()
-        }
-      })
+    await controls.start({
+      x: ["0%", "400%", "400%", "0%", "0%"],
+      y: ["0%", "0%", "400%", "400%", "0%"],
+      transition: {
+        duration: boxLength / 1000,
+        ease: "easeInOut",
+        repeat: rounds - 1,
+      },
+    })
   }
 
   const animateProgressBar = async (exerciseDuration: number) => {
@@ -142,11 +144,9 @@ export default function BoxBreathing() {
   }
 
   useEffect(() => {
-    if (isBreathing) {
-      setInterval(() => {
-        setRoundCount((prevState) => prevState + 1)
-      }, boxLength)
-    }
+    setInterval(() => {
+      setRoundCount((prevState) => prevState + 1)
+    }, boxLength)
   }, [isBreathing])
 
   return (
@@ -179,7 +179,7 @@ export default function BoxBreathing() {
 
         <div className="w-1/6 lg:w-1/3 flex flex-col justify-end items-end h-full gap-4">
           <div
-            onClick={finishExercise}
+            onClick={cancelExercise}
             className={`btn btn-outline ${!isBreathing ? "btn-disabled" : ""}`}
           >
             Cancel Exercise

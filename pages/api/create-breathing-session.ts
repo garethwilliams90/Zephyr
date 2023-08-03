@@ -33,23 +33,13 @@ export default async function handler(
 
   console.log(breathingSessionData)
 
-  // if (breathingSessionData.status === "complete") {
-  //   // add this session and the stats to the user prisma model
-  //   prisma.user.update({
-  //     where: {id: userSession.user?.id},
-  //     data: {
-  //       totalRounds: roundsCmp,
-
-  //     }
-  //   })
-  // }
-
-  // create an breathing session with prisma
-  const newSession = await prisma.exerciseSession.create({
-    data: breathingSessionData,
-  })
-
-  // Then update the user model with the breathingSession
+  if (breathingSessionData.status === "complete") {
+    // add this session and the stats to the user prisma model
+    // create an breathing session with prisma
+    const newSession = await prisma.exerciseSession.create({
+      data: breathingSessionData,
+    })
+  }
 
   res.status(200).json({ userSession, breathingSessionData })
 

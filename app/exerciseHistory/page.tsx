@@ -1,10 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
 import Loading from "../components/Loading"
-import { OrderType, ProductType } from "@/types/OrderType"
-import TotalSessionsComponent from "./totalSessions"
+import TotalSessionsComponent from "./components/totalSessions"
 
 export default function History() {
   const [history, setHistory] = useState<[]>([])
@@ -16,7 +14,6 @@ export default function History() {
     try {
       const res = await fetch("/api/get-profile-stats")
       const data = await res.json()
-
       return data
     } catch (error) {
       throw new Error("Failed to fetch orders: " + error)
