@@ -30,14 +30,14 @@ export default function BoxBreathing() {
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
 
-  function handleBreathingCompletion(status: string) {
+  function handleBreathingCompletion() {
     //Create a breathingSession as soon as the page loads up
     fetch("/api/create-breathing-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         breathingSessionId: 3,
-        sessionStatus: status,
+        sessionStatus: sessionStatus,
         roundCount: rounds,
         exerciseName: "Box Breathing",
         breathLength: breathLength,
@@ -79,7 +79,7 @@ export default function BoxBreathing() {
     setShowFinished(false)
 
     if (rounds > 0) {
-      handleBreathingCompletion(sessionStatus)
+      handleBreathingCompletion()
     }
     setRoundCount(0)
   }
