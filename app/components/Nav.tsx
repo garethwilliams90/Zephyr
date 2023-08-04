@@ -10,10 +10,12 @@ import DarkLight from "./DarkLight"
 import { useSession } from "next-auth/react"
 import formatPrice from "@/util/PriceFormat"
 import { Tooltip } from "@mui/material"
+import { BsFire } from "react-icons/bs"
 
 export default function Nav() {
   const cartStore = useCartStore()
   const { data: session, status } = useSession()
+  // console.log(session)
 
   //Total Price
   const totalPrice = cartStore.cart.reduce((acc, item) => {
@@ -28,6 +30,16 @@ export default function Nav() {
         </h1>
       </Link>
       <div className="flex-none gap-4">
+        {session?.user && (
+          <div className="-mt-4">
+            <div className="bg-red-500 rounded-full h-4 w-4 top-2 left-4 relative flex justify-center items-center">
+              <p className="text-white font-bold text-sm">
+                {session?.user.currentStreak}
+              </p>
+            </div>
+            <BsFire size={30} />
+          </div>
+        )}
         {/* {Dark Mode} */}
         <DarkLight />
         {/* <Tooltip title="View your cart" arrow>

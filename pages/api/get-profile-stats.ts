@@ -2,6 +2,7 @@ import { prisma } from "@/util/prisma"
 import { getServerSession } from "next-auth"
 import { NextApiRequest, NextApiResponse } from "next"
 import { authOptions } from "./auth/[...nextauth]"
+import calculateCurrentStreak from "@/util/getStreak"
 
 export default async function handler(
   req: NextApiRequest,
@@ -38,19 +39,23 @@ export default async function handler(
     },
   })
 
+  // Update prisma model with current streak and longest streak
+  const currentStreak = await calculateCurrentStreak(sessions)
+
   const data = {
     accountCreated: accountCreated,
     totalRounds: totalRounds,
     totalSessions: sessions,
     totalTime: totalTime,
-    // currentStreak: currentStreak,
+    currentStreak: currentStreak,
     // longestStreak: longestStreak,
   }
 
-  const roundUpdate = await prisma.user.update({
+  prisma.user.update({
     where: { id: userSession.user.id },
     data: {
       totalRounds: data.totalRounds,
+      currentStreak: currentStreak,
     },
   })
 
