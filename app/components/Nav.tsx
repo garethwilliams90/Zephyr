@@ -32,8 +32,8 @@ export default function Nav() {
       <div className="flex-none gap-4">
         {session?.user && (
           <div className="-mt-4">
-            <div className="bg-red-500 rounded-full h-4 w-4 top-2 left-4 relative flex justify-center items-center">
-              <p className="text-white font-bold text-sm">
+            <div className="bg-red-500 rounded-full h-4 w-4 shadow-xl top-2 left-4 relative flex justify-center items-center">
+              <p className="text-white font-semibold text-sm">
                 {session?.user.currentStreak}
               </p>
             </div>
@@ -123,7 +123,7 @@ export default function Nav() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow-lg  bg-base-300 rounded-box w-48 border-gray-600 border"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow-lg  bg-base-300 rounded-box w-48 md:w-64 lg:w-64 border-gray-600 border"
             >
               <li>
                 <Link
@@ -148,8 +148,16 @@ export default function Nav() {
                   </h3>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href={"/settings"}>Settings</Link>
+              </li> */}
+              <li>
+                <Link href={"/leaderboard"}>
+                  <h3 className="justify-between">
+                    Leaderboard
+                    <span className="badge mx-2 ">New</span>
+                  </h3>
+                </Link>
               </li>
               <li
                 onClick={() => {

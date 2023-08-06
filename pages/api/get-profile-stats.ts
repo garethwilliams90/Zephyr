@@ -40,7 +40,7 @@ export default async function handler(
   })
 
   // Update prisma model with current streak and longest streak
-  const currentStreak = await calculateCurrentStreak(sessions)
+  const [currentStreak, longestStreak] = await calculateCurrentStreak(sessions)
 
   const data = {
     accountCreated: accountCreated,
@@ -48,14 +48,15 @@ export default async function handler(
     totalSessions: sessions,
     totalTime: totalTime,
     currentStreak: currentStreak,
-    // longestStreak: longestStreak,
+    longestStreak: longestStreak,
   }
 
-  prisma.user.update({
+  const updateData = await prisma.user.update({
     where: { id: userSession.user.id },
     data: {
       totalRounds: data.totalRounds,
       currentStreak: currentStreak,
+      longestStreak: longestStreak,
     },
   })
 

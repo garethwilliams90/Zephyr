@@ -89,7 +89,7 @@ export default function Footer() {
                 <IoLogoLinkedin className="w-10 h-10" />
               </div>
             </a>
-            <a target="_blank" href={"/portfolio"}>
+            <a target="_blank" href={"https://gport.framer.ai/"}>
               <div className="btn btn-ghost">
                 <FaBook className="w-10 h-10" />
               </div>

@@ -9,7 +9,9 @@ import AddManualSession from "./ManualAddSession"
 import calculateCurrentStreak from "@/util/getStreak"
 
 export default function ProfileStreak({ stats }) {
-  const currentStreak = calculateCurrentStreak(stats.data.totalSessions)
+  const [currentStreak, longestStreak] = calculateCurrentStreak(
+    stats.data.totalSessions
+  )
 
   return (
     <div className="w-full lg:w-2/5 bg-black p-2 lg:p-4 flex flex-col rounded-xl">

@@ -25,5 +25,5 @@ export default function calculateCurrentStreak(array) {
   // After the loop, check if the last streak is the longest streak.
   longestStreak = Math.max(longestStreak, currentStreak)
 
-  return currentStreak
+  return [currentStreak, longestStreak]
 }
