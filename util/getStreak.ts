@@ -18,7 +18,7 @@ export default function calculateCurrentStreak(array) {
     } else {
       // If the current date is not within 24 hours of the previous date, update the longest streak if necessary.
       longestStreak = Math.max(longestStreak, currentStreak)
-      currentStreak = 1 // Reset current streak for the new streak.
+      currentStreak = 0 // Reset current streak for the new streak.
     }
   }
 

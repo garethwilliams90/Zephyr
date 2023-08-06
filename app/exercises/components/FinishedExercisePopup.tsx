@@ -13,7 +13,7 @@ export default function FinishedExercisePopup({
         <div className="toast toast-start shadow-lg z-50">
           <div className="alert alert-success flex-col">
             <div>
-              <span>{roundCount} rounds completed</span>
+              <span>Exercise completed</span>
             </div>
             <span>You can view your stats on your profile page</span>
           </div>
