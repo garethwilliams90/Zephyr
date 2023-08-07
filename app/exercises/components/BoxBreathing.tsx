@@ -55,6 +55,10 @@ export default function BoxBreathing() {
       })
   }
 
+  const openCompletionScreen = () => {
+    setShowFinished(true) // Update state to start animation playback
+  }
+
   const resetSquare = () => {
     controls.stop()
     controls.set({
@@ -75,8 +79,6 @@ export default function BoxBreathing() {
     setSessionStatus("complete")
     resetVariables()
     setShowFinished(true)
-    await delay(4500)
-    setShowFinished(false)
 
     if (rounds > 0) {
       handleBreathingCompletion("complete")
@@ -159,10 +161,7 @@ export default function BoxBreathing() {
       </AnimatePresence>
       <div className="flex flex-row items-center justify-center bg-black w-full h-2/3 rounded-xl p-2 lg:p-6 mb-4">
         <div className="w-1/6 lg:w-1/3 h-full  flex items-start justify-start "></div>
-        <FinishedExercisePopup
-          showFinished={showFinished}
-          roundCount={roundCount}
-        />
+
         <AnimatePresence>
           <div
             onClick={startBreathing}
@@ -177,7 +176,17 @@ export default function BoxBreathing() {
           </div>
         </AnimatePresence>
 
-        <div className="w-1/6 lg:w-1/3 flex flex-col justify-end items-end h-full gap-4">
+        <div className="w-1/6 lg:w-1/3 flex flex-col justify-between items-end h-full gap-4">
+          {showFinished ? (
+            <FinishedExercisePopup
+              showFinished={showFinished}
+              roundCount={roundCount}
+              disabled={false}
+            />
+          ) : (
+            <FinishedExercisePopup disabled={true} />
+          )}
+
           <div
             onClick={cancelExercise}
             className={`btn btn-outline ${!isBreathing ? "btn-disabled" : ""}`}

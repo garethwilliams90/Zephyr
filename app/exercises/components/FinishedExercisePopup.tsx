@@ -4,11 +4,13 @@ import CompletionCarousel from "./CompletionCarousel"
 interface PopupProps {
   showFinished: boolean
   roundCount?: number | null
+  disabled: boolean
 }
 
 export default function FinishedExercisePopup({
   showFinished,
   roundCount,
+  disabled,
 }: PopupProps) {
   const [animationPlaying, setAnimationPlaying] = useState(false)
 
@@ -19,8 +21,12 @@ export default function FinishedExercisePopup({
   return (
     <>
       {/* The button to open modal */}
-      <label htmlFor="my_modal_7" className="btn" onClick={togglePlayState}>
-        open modal
+      <label
+        htmlFor="my_modal_7"
+        className={`btn ${disabled ? "btn-disabled" : ""}`}
+        onClick={togglePlayState}
+      >
+        Exercise Summary
       </label>
 
       {/* Put this part before </body> tag */}
