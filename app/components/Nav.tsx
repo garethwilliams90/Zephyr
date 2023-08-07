@@ -11,16 +11,19 @@ import { useSession } from "next-auth/react"
 import formatPrice from "@/util/PriceFormat"
 import { Tooltip } from "@mui/material"
 import { BsFire } from "react-icons/bs"
+import { useEffect, useState } from "react"
 
 export default function Nav() {
   const cartStore = useCartStore()
   const { data: session, status } = useSession()
-  // console.log(session)
+  const [currentStreak, setCurrentStreak] = useState<number>(
+    session?.user.currentStreak
+  )
+  console.log(session)
 
-  //Total Price
-  const totalPrice = cartStore.cart.reduce((acc, item) => {
-    return acc + item.unit_amount! * item.quantity!
-  }, 0)
+  useEffect(() => {
+    setCurrentStreak(session?.user.currentStreak)
+  }, [session])
 
   return (
     <div className="px-4 fixed opacity-95 left-0 top-0 w-full navbar bg-base-300 mb-4 hover:bg-base-300  shadow-md shadow-black/30 z-50">

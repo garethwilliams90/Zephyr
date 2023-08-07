@@ -14,7 +14,7 @@ export default async function Home() {
         <Link
           href={"/exercises"}
           className={
-            "p-6 btn btn-secondary text-xl lg:text-2xl font-bold h-auto w-auto"
+            "p-6 btn btn-outline text-xl lg:text-2xl font-bold h-auto w-auto"
           }
         >
           Start breathing here...
