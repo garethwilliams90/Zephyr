@@ -15,12 +15,12 @@ export default function LeaderboardTable(data) {
               <th>Rank</th>
               <th></th>
               <th>User</th>
-              <th>XP</th>
+              <th>Rounds</th>
               <th>Streak</th>
             </tr>
           </thead>
           <tbody>
-            {data.users.users.map(
+            {data.users.sortedUsers.map(
               (user: leaderboardUserType, index: number) => {
                 return (
                   <tr
@@ -31,7 +31,7 @@ export default function LeaderboardTable(data) {
                         : ""
                     }
                   >
-                    <th>{index}</th>
+                    <th>{index + 1}</th>
 
                     <td>
                       <Image
@@ -44,7 +44,7 @@ export default function LeaderboardTable(data) {
                       />
                     </td>
                     <td>{user.name}</td>
-                    <td>{user.totalTime}</td>
+                    <td>{user.totalRounds}</td>
 
                     <td>
                       <div className="p-2 bg-red-500 text-white font-semibold rounded-full flex items-center justify-center">

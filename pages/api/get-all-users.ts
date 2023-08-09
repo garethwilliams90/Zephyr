@@ -21,13 +21,18 @@ export default async function handler(
       name: true,
       image: true,
       totalTime: true,
+      totalRounds: true,
       currentStreak: true,
       id: true,
     },
   })
 
+  const sortedUsers = users.sort(
+    (userA, userB) => userB.totalRounds - userA.totalRounds
+  )
+
   res.status(200).json({
     userSession,
-    users,
+    sortedUsers,
   })
 }
