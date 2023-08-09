@@ -3,6 +3,8 @@
 import { useThemeStore } from "@/store"
 import { ReactNode, useEffect, useState } from "react"
 import { SessionProvider } from "next-auth/react"
+import { NextUIProvider } from "@nextui-org/react"
+import { Providers } from "../providers"
 
 export default function Hydrate({ children }: { children: ReactNode }) {
   const [isHydrated, setIsHydrated] = useState(false)
@@ -14,17 +16,16 @@ export default function Hydrate({ children }: { children: ReactNode }) {
   }, [])
 
   return (
+    // <Providers>
     <SessionProvider>
       {isHydrated ? (
-        <body
-          className="px-4 lg:px-16 font-roboto "
-          data-theme={themeStore.mode}
-        >
+        <body className="lg:px-16 font-roboto" data-theme={themeStore.mode}>
           {children}
         </body>
       ) : (
         <body></body>
       )}
     </SessionProvider>
+    // </Providers>
   )
 }

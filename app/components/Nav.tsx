@@ -12,6 +12,9 @@ import formatPrice from "@/util/PriceFormat"
 import { Tooltip } from "@mui/material"
 import { BsFire } from "react-icons/bs"
 import { useEffect, useState } from "react"
+import useSound from "use-sound"
+import DropDown from "./Dropdown"
+import Plonk from "./sound/plonk"
 
 export default function Nav() {
   const cartStore = useCartStore()
@@ -19,11 +22,11 @@ export default function Nav() {
   const [currentStreak, setCurrentStreak] = useState<number>(
     session?.user.currentStreak
   )
-  console.log(session)
+  // console.log(session)
 
-  useEffect(() => {
-    setCurrentStreak(session?.user.currentStreak)
-  }, [session])
+  // useEffect(() => {
+  //   setCurrentStreak(session?.user.currentStreak)
+  // }, [session])
 
   return (
     <div className="px-4 fixed opacity-95 left-0 top-0 w-full navbar bg-base-300 mb-4 hover:bg-base-300  shadow-md shadow-black/30 z-50">
@@ -40,11 +43,13 @@ export default function Nav() {
                 {session?.user.currentStreak}
               </p>
             </div>
+
             <BsFire size={30} />
           </div>
         )}
         {/* {Dark Mode} */}
         <DarkLight />
+        {/* <Plonk /> */}
         {/* <Tooltip title="View your cart" arrow>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -109,6 +114,8 @@ export default function Nav() {
           </li>
         )}
 
+        {/* <DropDown /> */}
+
         {/* User is signed in */}
         {session?.user && (
           <div className="dropdown dropdown-end">
@@ -119,7 +126,7 @@ export default function Nav() {
                   alt={session.user.name as string}
                   width={36}
                   height={36}
-                  className="rounded-full"
+                  className="rounded-full border-2 border-blue-400"
                   tabIndex={0}
                 />
               </div>
@@ -140,9 +147,7 @@ export default function Nav() {
                   History
                 </Link>
               </li>
-              {/* <li>
-                <Link href={"/shop"}>Shop</Link>
-              </li> */}
+
               <li>
                 <Link href={"/profile"}>
                   <h3 className="justify-between">
@@ -151,9 +156,7 @@ export default function Nav() {
                   </h3>
                 </Link>
               </li>
-              {/* <li>
-                <Link href={"/settings"}>Settings</Link>
-              </li> */}
+
               <li>
                 <Link href={"/leaderboard"}>
                   <h3 className="justify-between">
@@ -163,6 +166,7 @@ export default function Nav() {
                 </Link>
               </li>
               <li
+                className="hover:bg-red-500/40 rounded-full"
                 onClick={() => {
                   signOut()
                   if (document.activeElement instanceof HTMLElement) {
