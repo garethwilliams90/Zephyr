@@ -1,6 +1,7 @@
 import { leaderboardUserType } from "@/types/leaderboardUserType"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
+import { IoPersonAddSharp } from "react-icons/io5"
 
 export default function LeaderboardTable(data) {
   const { data: session, status } = useSession()
@@ -17,6 +18,7 @@ export default function LeaderboardTable(data) {
               <th>User</th>
               <th>Rounds</th>
               <th>Streak</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -27,7 +29,7 @@ export default function LeaderboardTable(data) {
                     key={index}
                     className={
                       user.id === session.user.id
-                        ? "text-primary bg-blue-600 font-semibold"
+                        ? "text-primary border border-primary font-semibold"
                         : ""
                     }
                   >
@@ -50,6 +52,13 @@ export default function LeaderboardTable(data) {
                       <div className="p-2 bg-red-500 text-white font-semibold rounded-full flex items-center justify-center">
                         {user.currentStreak}
                       </div>
+                    </td>
+                    <td>
+                      {user.id !== session.user.id && (
+                        <div className="btn btn-primary">
+                          <IoPersonAddSharp />
+                        </div>
+                      )}
                     </td>
                   </tr>
                 )
