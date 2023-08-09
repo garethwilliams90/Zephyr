@@ -7,11 +7,7 @@ interface PopupProps {
   disabled: boolean
 }
 
-export default function FinishedExercisePopup({
-  showFinished,
-  roundCount,
-  disabled,
-}: PopupProps) {
+export default function FinishedExercisePopup({ disabled }: PopupProps) {
   const [animationPlaying, setAnimationPlaying] = useState(false)
 
   const togglePlayState = () => {
@@ -23,7 +19,7 @@ export default function FinishedExercisePopup({
       {/* The button to open modal */}
       <label
         htmlFor="my_modal_7"
-        className={`btn ${disabled ? "btn-disabled" : ""}`}
+        className={`btn btn-outline ${disabled ? "btn-disabled" : ""}`}
         onClick={togglePlayState}
       >
         Exercise Summary

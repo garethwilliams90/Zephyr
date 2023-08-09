@@ -149,7 +149,8 @@ export default function BoxBreathing() {
     setInterval(() => {
       setRoundCount((prevState) => prevState + 1)
     }, boxLength)
-  }, [isBreathing])
+    setExerciseDuration(rounds * boxLength)
+  }, [isBreathing, exerciseDuration])
 
   return (
     <div className="flex -m-6 lg:m-0 flex-col p-2 lg:p-6 bg-base-300 rounded-xl w-full h-screen">

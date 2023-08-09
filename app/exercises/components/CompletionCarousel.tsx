@@ -64,7 +64,7 @@ export default function CompletionCarousel({ playing }: { playing: boolean }) {
             </div>
 
             <div className="flex justify-between">
-              <a href="#slide1" className="btn btn-circle">
+              <a href="#slide1" className="btn btn-circle btn-outline">
                 ❮
               </a>
             </div>

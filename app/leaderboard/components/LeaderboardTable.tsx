@@ -29,7 +29,7 @@ export default function LeaderboardTable(data) {
                     key={index}
                     className={
                       user.id === session.user.id
-                        ? "text-primary border-x border-primary font-semibold"
+                        ? "text-primary border-x-2 border-primary font-semibold"
                         : ""
                     }
                   >

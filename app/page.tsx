@@ -17,7 +17,7 @@ export default async function Home() {
             "p-6 btn btn-outline text-xl lg:text-2xl font-bold h-auto w-auto"
           }
         >
-          Start breathing here...
+          START
         </Link>
         <FeaturesInfo />
       </div>
