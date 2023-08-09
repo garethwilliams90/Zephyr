@@ -8,10 +8,10 @@ export default function LeaderboardTable(data) {
 
   return (
     <>
-      <div className="overflow-x-auto">
-        <table className="table">
+      <div className="w-full">
+        <table className="table-compact w-full">
           {/* head */}
-          <thead>
+          <thead className="border-b border-primary-focus">
             <tr>
               <th>Rank</th>
               <th></th>
@@ -29,7 +29,7 @@ export default function LeaderboardTable(data) {
                     key={index}
                     className={
                       user.id === session.user.id
-                        ? "text-primary border border-primary font-semibold"
+                        ? "text-primary border-x border-primary font-semibold"
                         : ""
                     }
                   >
