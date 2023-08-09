@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import Loading from "../components/Loading"
 import { useSession } from "next-auth/react"
-import Link from "next/link"
 import LeaderboardTable from "./components/LeaderboardTable"
 
 export default function Profile() {
@@ -16,7 +15,7 @@ export default function Profile() {
     try {
       const res = await fetch("/api/get-all-users")
       const usersData = await res.json()
-      console.log(usersData)
+      // console.log(usersData)
       return usersData
     } catch (error) {
       throw new Error("Failed to fetch all users: " + error)
