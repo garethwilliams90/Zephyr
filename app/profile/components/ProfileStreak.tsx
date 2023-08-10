@@ -7,6 +7,7 @@ import { DayCalendarSkeleton } from "@mui/x-date-pickers"
 import SimpleSnackbar from "@/app/components/SnackBar"
 import AddManualSession from "./ManualAddSession"
 import calculateCurrentStreak from "@/util/getStreak"
+import { BsFire } from "react-icons/bs"
 
 export default function ProfileStreak({ stats }) {
   const [currentStreak, longestStreak] = calculateCurrentStreak(
@@ -18,6 +19,16 @@ export default function ProfileStreak({ stats }) {
       <div className="stat -m-2 lg:-m-4">
         <div className="stat-title">Current Streak</div>
         <div className="stat-value text-primary">{currentStreak} Days</div>
+        <div className="stat-figure text-primary">
+          <BsFire size={40} />
+        </div>
+      </div>
+      <div className="stat -m-2 lg:-m-4">
+        <div className="stat-title">Longest Streak</div>
+        <div className="stat-value text-purple-400">{longestStreak} Days</div>
+        <div className="stat-figure text-purple-400">
+          <BsFire size={40} />
+        </div>
       </div>
       <div className="flex flex-col p-2 lg:p-4 my-2 lg:my-4 rounded-xl text-primary-focus bg-slate-700 w-full">
         <LocalizationProvider dateAdapter={AdapterDayjs}>

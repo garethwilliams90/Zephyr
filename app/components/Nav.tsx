@@ -15,13 +15,14 @@ import { useEffect, useState } from "react"
 import useSound from "use-sound"
 import DropDown from "./Dropdown"
 import Plonk from "./sound/plonk"
+import calculateCurrentStreak from "@/util/getStreak"
 
 export default function Nav() {
   const cartStore = useCartStore()
   const { data: session, status } = useSession()
-  const [currentStreak, setCurrentStreak] = useState<number>(
-    session?.user.currentStreak
-  )
+
+  const [currentStreak, setCurrentStreak] = useState(null)
+
   // console.log(session)
 
   // useEffect(() => {

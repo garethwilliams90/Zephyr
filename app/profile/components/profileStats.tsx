@@ -17,6 +17,19 @@ export default function ProfileStats({ stats }) {
     return Math.round(totalMinutes * 10) / 10
   }
 
+  function convertToHoursAndMinutes(totalMinutes) {
+    const hours = Math.floor(totalMinutes / 60)
+    const minutes = totalMinutes % 60
+
+    if (hours === 0) {
+      return `${minutes.toFixed(0)} min`
+    } else if (hours === 1) {
+      return `${hours} hr ${minutes.toFixed(0)} min`
+    } else {
+      return `${hours} hr ${minutes.toFixed(0)} min`
+    }
+  }
+
   return (
     <div className="stats shadow bg-black w-full flex flex-col lg:flex-row">
       <div className="stat">
@@ -27,18 +40,18 @@ export default function ProfileStats({ stats }) {
         <div className="stat-value text-primary">
           {stats.data.totalSessions.length}
         </div>
-        <div className="stat-desc">21% more than last month</div>
+        {/* <div className="stat-desc">21% more than last month</div> */}
       </div>
 
       <div className="stat">
         <div className="stat-figure text-secondary">
           <BsClock size={40} />
         </div>
-        <div className="stat-title">Minutes Breathing</div>
+        <div className="stat-title">Time Breathing</div>
         <div className="stat-value text-secondary">
-          {convertToMinutes(stats.data.totalTime)}
+          {convertToHoursAndMinutes(convertToMinutes(stats.data.totalTime))}
         </div>
-        <div className="stat-desc">Top 8% of all users</div>
+        {/* <div className="stat-desc">Top 8% of all users</div> */}
       </div>
 
       <div className="stat">
@@ -49,7 +62,7 @@ export default function ProfileStats({ stats }) {
         <div className="stat-value text-secondary">
           {stats.data.totalRounds}
         </div>
-        <div className="stat-desc">Top 1% of all users</div>
+        {/* <div className="stat-desc">Top 1% of all users</div> */}
       </div>
 
       <div className="stat">
@@ -61,7 +74,7 @@ export default function ProfileStats({ stats }) {
                 alt={session?.user?.name as string}
                 width={64}
                 height={64}
-                className="rounded-full "
+                className="rounded-full"
                 tabIndex={0}
               />
             </div>
