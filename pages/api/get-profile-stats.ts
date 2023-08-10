@@ -39,7 +39,7 @@ export default async function handler(
     },
   })
 
-  // Update prisma model with current streak and longest streak
+  // calculate the new streaks with the new sessions array
   const [currentStreak, longestStreak] = await calculateCurrentStreak(sessions)
 
   const data = {
@@ -51,16 +51,16 @@ export default async function handler(
     longestStreak: longestStreak,
   }
 
+  // Update the database with the new streak, rounds and time
   const updateData = await prisma.user.update({
     where: { id: userSession.user.id },
     data: {
       totalRounds: data.totalRounds,
       currentStreak: currentStreak,
       longestStreak: longestStreak,
+      totalTime: totalTime,
     },
   })
-
-  console.log({ userSession, data })
 
   res.status(200).json({
     userSession,

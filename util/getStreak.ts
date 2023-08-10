@@ -16,28 +16,35 @@ export default function calculateCurrentStreak(array) {
   const todayTimestamp = today.getTime() // Convert today to a timestamp
 
   let prevDate = new Date(sortedSessions[0].startedAt)
+  let prevDateTimestamp = prevDate.getTime()
 
   for (let i = 0; i < sortedSessions.length; i++) {
-    if (sortedSessions[i].status === "complete") {
+    if (
+      sortedSessions[i].status === "complete" &&
+      sortedSessions[i].roundsCompleted > 0
+    ) {
       const currentDate = new Date(sortedSessions[i].startedAt)
       const currentDateTimestamp = currentDate.getTime() // Convert currentDate to a timestamp
-      const timeDifference = (todayTimestamp - currentDateTimestamp) / oneDay
+      const timeDifference = (prevDateTimestamp - currentDateTimestamp) / oneDay
 
       if (timeDifference <= 1) {
-        // If the current date is within 24 hours of today, it's part of the streak.
+        // If the current date is within 24 hours of the previous date, it's part of the streak.
         currentStreak++
-        prevDate = currentDate // Update the previous date for streak calculation.
       } else {
         // If the streak is broken, update the longest streak if necessary.
         longestStreak = Math.max(longestStreak, currentStreak)
         currentStreak = 0
       }
+
+      prevDate = currentDate // Update the previous date for streak calculation.
+      prevDateTimestamp = currentDateTimestamp
     }
   }
 
   // Check if the streak continues till today.
-  const prevDateTimestamp = prevDate.getTime()
-  if ((todayTimestamp - prevDateTimestamp) / oneDay <= 1) {
+  const lastCompletedTimestamp = prevDate.getTime()
+  const timeDifference = (todayTimestamp - lastCompletedTimestamp) / oneDay
+  if (timeDifference <= 1) {
     currentStreak++
   }
 

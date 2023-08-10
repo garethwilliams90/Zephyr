@@ -14,6 +14,7 @@ export default function History() {
     try {
       const res = await fetch("/api/get-profile-stats")
       const data = await res.json()
+      console.log(data)
       return data
     } catch (error) {
       throw new Error("Failed to fetch orders: " + error)
