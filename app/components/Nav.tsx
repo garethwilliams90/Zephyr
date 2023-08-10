@@ -20,14 +20,12 @@ import calculateCurrentStreak from "@/util/getStreak"
 export default function Nav() {
   const cartStore = useCartStore()
   const { data: session, status } = useSession()
+  const [streak, setStreak] = useState(null)
 
-  const [currentStreak, setCurrentStreak] = useState(null)
-
-  // console.log(session)
-
-  // useEffect(() => {
-  //   setCurrentStreak(session?.user.currentStreak)
-  // }, [session])
+  useEffect(() => {
+    setStreak(session?.user.currentStreak)
+    console.log(session)
+  }, [session])
 
   return (
     <div className="px-4 fixed opacity-95 left-0 top-0 w-full navbar bg-base-300 mb-4 hover:bg-base-300  shadow-md shadow-black/30 z-50">
@@ -40,73 +38,14 @@ export default function Nav() {
         {session?.user && (
           <div className="-mt-4">
             <div className="bg-red-500 rounded-full h-4 w-4 shadow-xl top-2 left-4 relative flex justify-center items-center">
-              <p className="text-white font-semibold text-sm">
-                {session?.user.currentStreak}
-              </p>
+              <p className="text-white font-semibold text-sm">{streak}</p>
             </div>
-
             <BsFire size={30} />
           </div>
         )}
         {/* {Dark Mode} */}
         <DarkLight />
         {/* <Plonk /> */}
-        {/* <Tooltip title="View your cart" arrow>
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <div className="indicator">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-7 w-7"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
-                {cartStore.cart.length > 0 && (
-                  <motion.span
-                    animate={{ scale: 1 }}
-                    initial={{ scale: 0 }}
-                    exit={{ scale: 0 }}
-                  >
-                    <motion.span className="badge badge-sm indicator-item bg-secondary text-white z-0">
-                      {cartStore.cart.length}
-                    </motion.span>
-                  </motion.span>
-                )}
-              </div>
-            </label>
-
-            <div
-              tabIndex={0}
-              className="mt-3 card card-compact dropdown-content w-52 bg-base-300 shadow border-gray-600 border"
-            >
-              <div className="card-body">
-                <span className="font-bold text-lg">
-                  {cartStore.cart.length} Items
-                </span>
-                <span className="text-info">
-                  Subtotal: {formatPrice(totalPrice)}
-                </span>
-
-                <div className="card-actions">
-                  <button
-                    onClick={() => cartStore.toggleCart()}
-                    className="btn btn-outline btn-block"
-                  >
-                    View cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Tooltip> */}
 
         {/* If the user is not signed in */}
         {!session?.user && (

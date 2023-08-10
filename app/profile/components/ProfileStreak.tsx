@@ -14,6 +14,8 @@ export default function ProfileStreak({ stats }) {
     stats.data.totalSessions
   )
 
+  console.log(currentStreak, longestStreak)
+
   return (
     <div className="w-full lg:w-2/5 bg-black p-2 lg:p-4 flex flex-col rounded-xl">
       <div className="stat -m-2 lg:-m-4">
