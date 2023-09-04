@@ -24,12 +24,12 @@ module.exports = {
   plugins: [require("daisyui")],
   daisyui: {
     styled: true,
-    themes: ["night", "black", "forest", "light", "retro"],
+    themes: ["night", "black", "forest", "light", "synthwave"],
     base: true,
     utils: true,
     logs: true,
     rtl: false,
     prefix: "",
-    darkTheme: "forest",
+    darkTheme: "synthwave",
   },
 }

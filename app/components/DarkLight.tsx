@@ -9,13 +9,13 @@ export default function DarkLight() {
     <div className="btn btn-ghost btn-circle">
       <label className="swap swap-rotate">
         <input
-          defaultChecked={themeStore.mode === "night" ? false : true}
+          defaultChecked={themeStore.mode === "synthwave" ? false : true}
           type="checkbox"
           onClick={() => {
-            if (themeStore.mode === "night") {
-              themeStore.toggleMode("forest")
+            if (themeStore.mode === "synthwave") {
+              themeStore.toggleMode("light")
             } else {
-              themeStore.toggleMode("night")
+              themeStore.toggleMode("synthwave")
             }
           }}
         />
