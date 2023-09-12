@@ -6,7 +6,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
 import { DayCalendarSkeleton } from "@mui/x-date-pickers"
 import SimpleSnackbar from "@/app/components/SnackBar"
 import AddManualSession from "./ManualAddSession"
-import calculateCurrentStreak from "@/util/getStreak"
+import calculateCurrentStreak from "@/util/calculateStreak"
 import { BsFire } from "react-icons/bs"
 
 export default function ProfileStreak({ stats }) {

@@ -8,7 +8,7 @@ export default async function Home() {
         <h1 className="text-7xl font-bold text-primary">Zephyr</h1>
         <h2 className="w-full lg:w-2/3 p-6 text-lg lg:text-xl my-10 leading-loose tracking-wide text-center">
           An app designed to help you create and sustain healthy breathing
-          habits to improve you mental, physical and emotional health, one
+          habits to improve your mental, physical and emotional health, one
           breathe at a time.
         </h2>
         <Link

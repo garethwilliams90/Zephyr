@@ -15,7 +15,7 @@ import { useEffect, useState } from "react"
 import useSound from "use-sound"
 import DropDown from "./Dropdown"
 import Plonk from "./sound/plonk"
-import calculateCurrentStreak from "@/util/getStreak"
+import calculateCurrentStreak from "@/util/calculateStreak"
 
 export default function Nav() {
   const cartStore = useCartStore()

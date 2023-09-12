@@ -5,7 +5,7 @@ export default function FeaturesInfo() {
       <div className="bg-base-100 p-2 lg:p-4 rounded-xl my-4">
         <h1 className="font-semibold text-lg text-primary">Create a habit</h1>
         <p className="text-md font-light leading-relaxed text-base-content">
-          Whilst tracking you progress and seeing gradual improvements you will
+          Whilst tracking your progress and seeing gradual improvements you will
           start to create a small yet effective habit.
         </p>
       </div>

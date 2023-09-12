@@ -2,7 +2,7 @@ import { prisma } from "@/util/prisma"
 import { getServerSession } from "next-auth"
 import { NextApiRequest, NextApiResponse } from "next"
 import { authOptions } from "./auth/[...nextauth]"
-import calculateCurrentStreak from "@/util/getStreak"
+import calculateStreak from "@/util/calculateStreak"
 
 export default async function handler(
   req: NextApiRequest,
@@ -40,7 +40,7 @@ export default async function handler(
   })
 
   // calculate the new streaks with the new sessions array
-  const [currentStreak, longestStreak] = await calculateCurrentStreak(sessions)
+  const [currentStreak, longestStreak] = await calculateStreak(sessions)
 
   const data = {
     accountCreated: accountCreated,
