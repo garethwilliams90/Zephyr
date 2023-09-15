@@ -40,7 +40,10 @@ export default async function handler(
   })
 
   // calculate the new streaks with the new sessions array
-  const [currentStreak, longestStreak] = await calculateStreak(sessions)
+  const [currentStreak, longestStreak] = await calculateStreak(
+    sessions,
+    userSession
+  )
 
   const data = {
     accountCreated: accountCreated,
