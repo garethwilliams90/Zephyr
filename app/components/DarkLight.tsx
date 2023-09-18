@@ -13,7 +13,7 @@ export default function DarkLight() {
           type="checkbox"
           onClick={() => {
             if (themeStore.mode === "synthwave") {
-              themeStore.toggleMode("light")
+              themeStore.toggleMode("forest")
             } else {
               themeStore.toggleMode("synthwave")
             }
